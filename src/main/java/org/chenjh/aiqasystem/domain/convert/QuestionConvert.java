@@ -3,7 +3,7 @@ package org.chenjh.aiqasystem.domain.convert;
 import com.nrapendra.jooq.tables.records.QuestionRecord;
 import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
 import org.chenjh.aiqasystem.domain.dto.TagDTO;
-import org.chenjh.aiqasystem.domain.vo.QuestionVO;
+import org.chenjh.aiqasystem.domain.vo.QuestionSaveVO;
 import org.jooq.types.UByte;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class QuestionConvert {
                 .build();
     }
 
-    public static QuestionRecord convert(QuestionVO question) {
+    public static QuestionRecord convert(QuestionSaveVO question) {
         QuestionRecord questionRecord = new QuestionRecord();
         questionRecord.setQuestionTitle(question.getTitle());
         questionRecord.setQuestionSolution(question.getSolution());

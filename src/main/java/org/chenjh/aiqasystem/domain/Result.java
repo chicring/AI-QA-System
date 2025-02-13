@@ -16,7 +16,7 @@ import java.util.HashMap;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResultJson<T> implements Serializable {
+public class Result<T> implements Serializable {
     @Serial
     private static final long serialVersionUID = 783015033603078674L;
     private int code;
@@ -24,34 +24,34 @@ public class ResultJson<T> implements Serializable {
     private String requestId;
     private T data;
 
-    public static ResultJson<Object> ok() {
+    public static Result<Object> ok() {
         return ok(new HashMap<>(1));
     }
-    public static <T> ResultJson<T> ok(T data) {
-        return new ResultJson<>(ResultCode.SUCCESS, data);
+    public static <T> Result<T> ok(T data) {
+        return new Result<>(ResultCode.SUCCESS, data);
     }
 
-    public static <T> ResultJson<T> ok(T data, String requestId) {
-        return new ResultJson<>(ResultCode.SUCCESS, data, requestId);
+    public static <T> Result<T> ok(T data, String requestId) {
+        return new Result<>(ResultCode.SUCCESS, data, requestId);
     }
 
-    public static <T> ResultJson<T> failure(ResultCode code) {
+    public static <T> Result<T> failure(ResultCode code) {
         return failure(code, null);
     }
 
-    public static <T> ResultJson<T> failure(ResultCode code, T o) {
-        return new ResultJson<>(code, o);
+    public static <T> Result<T> failure(ResultCode code, T o) {
+        return new Result<>(code, o);
     }
 
-    public static <T> ResultJson<T> failure(ResultCode code, T o, String requestId) {
-        return new ResultJson<>(code, o, requestId);
+    public static <T> Result<T> failure(ResultCode code, T o, String requestId) {
+        return new Result<>(code, o, requestId);
     }
 
-    public static <T> ResultJson<T> failure(int code, String msg) {
-        return new ResultJson<>(code, msg);
+    public static <T> Result<T> failure(int code, String msg) {
+        return new Result<>(code, msg);
     }
 
-    public ResultJson(ResultCode resultCode) {
+    public Result(ResultCode resultCode) {
         setResultCode(resultCode);
     }
 
@@ -60,17 +60,17 @@ public class ResultJson<T> implements Serializable {
         return JSON.toJSONString(this);
     }
 
-    public ResultJson(int code, String msg) {
+    public Result(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public ResultJson(ResultCode resultCode, T data) {
+    public Result(ResultCode resultCode, T data) {
         setResultCode(resultCode);
         this.data = data;
     }
 
-    public ResultJson(ResultCode resultCode, T data, String requestId) {
+    public Result(ResultCode resultCode, T data, String requestId) {
         setResultCode(resultCode);
         this.data = data;
         this.requestId = requestId;

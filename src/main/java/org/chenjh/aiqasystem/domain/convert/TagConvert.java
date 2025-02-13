@@ -12,6 +12,7 @@ public class TagConvert {
         return TagDTO.builder()
                 .id(tagRecord.getTagId())
                 .name(tagRecord.getTagName())
+                .sort(tagRecord.getTagSort().intValue())
                 .build();
     }
 

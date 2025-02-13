@@ -21,6 +21,11 @@ public class TagRepository {
         this.dsl = dsl;
     }
 
+    public TagRecord save(TagRecord tablePojo) {
+        TagRecord tagRecord = dsl.newRecord(Tables.QA_TAG,tablePojo);
+        tagRecord.store();
+        return tagRecord;
+    }
 
     public List<TagRecord> findByQuestionId(Long questionId) {
         return dsl.select()

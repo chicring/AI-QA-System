@@ -2,7 +2,7 @@ package org.chenjh.aiqasystem.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.chenjh.aiqasystem.domain.ResultCode;
-import org.chenjh.aiqasystem.domain.ResultJson;
+import org.chenjh.aiqasystem.domain.Result;
 import org.chenjh.aiqasystem.exception.custom.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,23 +17,23 @@ import java.nio.file.AccessDeniedException;
 @Slf4j
 public class DefaultExceptionHandler {
     @ExceptionHandler({BadRequestException.class})
-    public ResultJson<?> handleBadRequestException(BadRequestException e) {
-        return ResultJson.failure(ResultCode.BAD_REQUEST, e.getMessage());
+    public Result<?> handleBadRequestException(BadRequestException e) {
+        return Result.failure(ResultCode.BAD_REQUEST, e.getMessage());
     }
 
     @ExceptionHandler({NotAllowedException.class})
-    public ResultJson<?> handleNotAllowedException(NotAllowedException e) {
-        return ResultJson.failure(ResultCode.BAD_REQUEST, e.getMessage());
+    public Result<?> handleNotAllowedException(NotAllowedException e) {
+        return Result.failure(ResultCode.BAD_REQUEST, e.getMessage());
     }
 
     @ExceptionHandler({ResourceNotFoundException.class})
-    public ResultJson<?> handleResourceNotFoundException(ResourceNotFoundException e) {
-        return ResultJson.failure(ResultCode.NOT_FOUND, e.getMessage());
+    public Result<?> handleResourceNotFoundException(ResourceNotFoundException e) {
+        return Result.failure(ResultCode.NOT_FOUND, e.getMessage());
     }
 
     @ExceptionHandler({ResourceConflictException.class})
-    public ResultJson<?> handleResourceConflictException(ResourceConflictException e) {
-        return ResultJson.failure(ResultCode.CONFLICT, e.getMessage());
+    public Result<?> handleResourceConflictException(ResourceConflictException e) {
+        return Result.failure(ResultCode.CONFLICT, e.getMessage());
     }
 
 //    @ExceptionHandler(ExpiredJwtException.class)
@@ -42,14 +42,14 @@ public class DefaultExceptionHandler {
 //    }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResultJson<?> handleAccessDeniedException(AccessDeniedException e) {
-        return ResultJson.failure(ResultCode.FORBIDDEN, e.getMessage());
+    public Result<?> handleAccessDeniedException(AccessDeniedException e) {
+        return Result.failure(ResultCode.FORBIDDEN, e.getMessage());
     }
 
     @ExceptionHandler({ServerException.class})
-    public ResultJson<?> handleServerException(Exception e) {
+    public Result<?> handleServerException(Exception e) {
         log.error(e.getMessage());
-        return ResultJson.failure(ResultCode.SERVER_ERROR, e.getMessage());
+        return Result.failure(ResultCode.SERVER_ERROR, e.getMessage());
     }
 
 }

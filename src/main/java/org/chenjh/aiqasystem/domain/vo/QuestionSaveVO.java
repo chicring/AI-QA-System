@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionVO {
+public class QuestionSaveVO {
     private String title;
     private String solution;
     private Integer difficultyLevel;

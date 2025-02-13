@@ -1,8 +1,9 @@
 package org.chenjh.aiqasystem.service.question;
 
-import com.nrapendra.jooq.tables.records.QuestionRecord;
+import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
-import org.chenjh.aiqasystem.domain.vo.QuestionVO;
+import org.chenjh.aiqasystem.domain.vo.QuestionQueryVO;
+import org.chenjh.aiqasystem.domain.vo.QuestionSaveVO;
 
 /**
  * @author hjong
@@ -16,7 +17,7 @@ public interface QuestionService{
      * @param  question
      * @return QuestionDTO
      */
-    QuestionDTO saveQuestion(QuestionVO question);
+    QuestionDTO saveQuestion(QuestionSaveVO question);
 
     /**
      * 删除问题
@@ -30,4 +31,11 @@ public interface QuestionService{
      * @return QuestionDTO
      */
     QuestionDTO getQuestionById(Long id);
+
+    /**
+     * 查询问题
+     * @param question
+     * @return QuestionDTO
+     */
+    PageResult<QuestionDTO> getQuestionList(QuestionQueryVO question);
 }

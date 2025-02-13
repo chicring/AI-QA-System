@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author hjong
  * @date 2025−01−10
@@ -17,5 +19,5 @@ public class PageResult<T> {
     private int page;
     private int rows;
     private long total;
-    private T data;
+    private List<T> data;
 }

@@ -1,11 +1,15 @@
 package org.chenjh.aiqasystem.controller;
 
 import jakarta.annotation.Resource;
-import org.chenjh.aiqasystem.domain.ResultJson;
+import org.chenjh.aiqasystem.domain.PageResult;
+import org.chenjh.aiqasystem.domain.Result;
 import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
-import org.chenjh.aiqasystem.domain.vo.QuestionVO;
+import org.chenjh.aiqasystem.domain.vo.QuestionQueryVO;
+import org.chenjh.aiqasystem.domain.vo.QuestionSaveVO;
 import org.chenjh.aiqasystem.service.question.QuestionService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -15,14 +19,23 @@ public class QuestionController {
     private QuestionService questionService;
 
     @PostMapping("/save")
-    public ResultJson<> saveQuestion(@RequestBody QuestionVO questionVO){
-        return ResultJson.ok(questionService.saveQuestion(questionVO));
+    public Result<QuestionDTO> saveQuestion(@RequestBody QuestionSaveVO questionSaveVO){
+        return Result.ok(questionService.saveQuestion(questionSaveVO));
     }
 
     @GetMapping("/{questionId}")
-    public ResultJson<QuestionDTO> getQuestionById(@PathVariable Long questionId){
+    public Result<QuestionDTO> getQuestionById(@PathVariable Long questionId){
 
-        return ResultJson.ok(questionService.getQuestionById(questionId));
+        return Result.ok(questionService.getQuestionById(questionId));
+    }
+
+    @GetMapping("/tag/{tagId}")
+    public Result<PageResult<QuestionDTO>> getQuestionByTitle(
+            @PathVariable Long tagId,
+            QuestionQueryVO questionQueryVO) {
+
+//        questionQueryVO.getTagIds().add(tagId);
+        return Result.ok(questionService.getQuestionList(questionQueryVO));
     }
 
 }
