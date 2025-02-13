@@ -1,9 +1,12 @@
 package org.chenjh.aiqasystem.domain;
 
+import lombok.Getter;
+
 /**
  * @author hjong
  * @date 2025−01−10
  */
+@Getter
 public enum ResultCode {
     /*
     请求返回状态码和说明信息
@@ -26,14 +29,6 @@ public enum ResultCode {
     ResultCode(int code, String msg) {
         this.code = code;
         this.msg = msg;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
     }
 
 }

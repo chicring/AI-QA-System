@@ -15,7 +15,7 @@ public interface JOOQRepository<T> {
 
     List<T> findAll();
 
-    Optional<T> findById(int id);
+    Optional<T> findById(long id);
 
     boolean deleteById(int id);
 }
