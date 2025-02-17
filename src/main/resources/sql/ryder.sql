@@ -56,7 +56,7 @@ CREATE TABLE `sys_user` (
                             `mobile` varchar(255) NULL DEFAULT NULL COMMENT '手机号',
                             `sex` int NULL DEFAULT NULL COMMENT '性别：1-男性，2-女性',
                             `avatar` text NULL COMMENT '头像（Base64）',
-                            `enabled` bit(1) NOT NULL COMMENT '是否启用：1-启用，0-禁用',
+                            `enabled` bit(1) NOT NULL DEFAULT '1' COMMENT '是否启用：1-启用，0-禁用',
                             `login_ip` varchar(255) NULL DEFAULT NULL COMMENT '最近登录IP',
                             `login_date` datetime(6) NULL DEFAULT NULL COMMENT '最近登录时间',
                             `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',

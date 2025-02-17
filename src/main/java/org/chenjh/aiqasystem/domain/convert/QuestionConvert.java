@@ -3,7 +3,7 @@ package org.chenjh.aiqasystem.domain.convert;
 import com.nrapendra.jooq.tables.records.QuestionRecord;
 import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
 import org.chenjh.aiqasystem.domain.dto.TagDTO;
-import org.chenjh.aiqasystem.domain.vo.QuestionSaveVO;
+import org.chenjh.aiqasystem.domain.vo.question.QuestionSaveVO;
 import org.jooq.types.UByte;
 
 import java.util.List;

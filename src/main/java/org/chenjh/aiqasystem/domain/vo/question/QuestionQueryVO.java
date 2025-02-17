@@ -1,4 +1,4 @@
-package org.chenjh.aiqasystem.domain.vo;
+package org.chenjh.aiqasystem.domain.vo.question;
 
 import lombok.Data;
 

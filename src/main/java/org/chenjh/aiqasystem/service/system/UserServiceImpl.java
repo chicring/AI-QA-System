@@ -10,12 +10,15 @@ import org.chenjh.aiqasystem.domain.dto.system.UserInfoDTO;
 import org.chenjh.aiqasystem.domain.dto.system.UserTokenDTO;
 import org.chenjh.aiqasystem.domain.vo.UserLoginVO;
 import org.chenjh.aiqasystem.domain.vo.UserRegisterVO;
+import org.chenjh.aiqasystem.exception.custom.ServerException;
 import org.chenjh.aiqasystem.repo.system.UserRepository;
 import org.chenjh.aiqasystem.repo.system.UserRoleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
+
+import static org.chenjh.aiqasystem.domain.ResultCode.*;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -28,6 +31,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserInfoDTO register(UserRegisterVO vo) {
+        if(userRepository.findByUsername(vo.getUsername()).isPresent()){
+            throw new ServerException(USER_EXIST);
+        }
         UserRecord userRecord = new UserRecord();
         userRecord.setUsername(vo.getUsername());
         userRecord.setPassword(SaSecureUtil.sha256(vo.getPassword()));
@@ -36,7 +42,7 @@ public class UserServiceImpl implements UserService{
         userRecord.setMobile(vo.getMobile());
         userRecord.setSex(vo.getSex());
         if(userRepository.save(userRecord) == 0){
-            throw  new RuntimeException("注册失败");
+            throw  new ServerException(Register_FAIL);
         }
 
         userRoleRepository.save(userRecord.getUsername(), SystemRoleEnum.USER.getId());
@@ -76,6 +82,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserInfoDTO getUserInfoByName(String userName) {
+        Optional<UserRecord> userRecord = userRepository.findByUsername(userName);
+        if(userRecord.isEmpty()){
+            throw new ServerException(USER_NOT_EXIST);
+        }
         return null;
     }
 

@@ -1,8 +1,6 @@
 package org.chenjh.aiqasystem.domain.vo;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +29,7 @@ public class UserRegisterVO {
     private String mobile;         // 手机号
 
     /// 性别：1-男性，2-女性
-    @Pattern(regexp = "^1|2$", message = "性别：1-男性，2-女性")
+    @Max(value = 2, message = "性别：1-男性，2-女性")
+    @Min(value = 1, message = "性别：1-男性，2-女性")
     private Integer sex;           // 性别：1-男性，2-女性
 }

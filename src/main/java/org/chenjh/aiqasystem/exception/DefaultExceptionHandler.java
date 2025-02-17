@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.chenjh.aiqasystem.domain.ResultCode;
 import org.chenjh.aiqasystem.domain.Result;
 import org.chenjh.aiqasystem.exception.custom.*;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,6 +17,18 @@ import java.nio.file.AccessDeniedException;
 @RestControllerAdvice
 @Slf4j
 public class DefaultExceptionHandler {
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public Result<?> handleException(MethodArgumentNotValidException e) {
+        String msg = e.getBindingResult().getFieldErrors()
+                .stream()
+                .map(n -> String.format("%s", n.getDefaultMessage()))
+                .reduce((x, y) -> String.format("%s; %s", x, y))
+                .orElse("参数输入有误");
+        log.error("MethodArgumentNotValidException异常，参数校验异常：{}", msg);
+        return Result.failure(ResultCode.BAD_REQUEST, msg);
+    }
+
     @ExceptionHandler({BadRequestException.class})
     public Result<?> handleBadRequestException(BadRequestException e) {
         return Result.failure(ResultCode.BAD_REQUEST, e.getMessage());
@@ -47,9 +60,9 @@ public class DefaultExceptionHandler {
     }
 
     @ExceptionHandler({ServerException.class})
-    public Result<?> handleServerException(Exception e) {
+    public Result<?> handleServerException(ServerException e) {
         log.error(e.getMessage());
-        return Result.failure(ResultCode.SERVER_ERROR, e.getMessage());
+        return Result.failure(e.getCode(), e.getMessage());
     }
 
 }

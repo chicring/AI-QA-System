@@ -2,10 +2,9 @@ package org.chenjh.aiqasystem.repo.system;
 
 
 import com.nrapendra.jooq.tables.records.UserRecord;
-import org.chenjh.aiqasystem.domain.entity.system.User;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ObjectUtils;
+
 
 import java.util.Optional;
 
@@ -28,8 +27,9 @@ public class UserRepository {
         return dsl.newRecord(SYS_USER,user).store();
     }
 
+
     public Optional<UserRecord> findByUsername(String username){
-        UserRecord userRecord = dsl.selectFrom(SYS_USER).where(SYS_USER.USERNAME.eq(username)).fetchOne();
-        return (ObjectUtils.isEmpty(userRecord)) ? Optional.empty() : Optional.of(userRecord);
+
+        return dsl.selectFrom(SYS_USER).where(SYS_USER.USERNAME.eq(username)).fetchOptional();
     }
 }

@@ -13,4 +13,5 @@ public class TagDTO {
     private Long tagId;
     private String tagName;
     private Integer sort;
+    private Integer parentTagId;
 }

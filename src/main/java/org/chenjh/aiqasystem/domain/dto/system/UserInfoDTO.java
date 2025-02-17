@@ -14,7 +14,6 @@ import java.util.Set;
 public class UserInfoDTO {
 
     private String username;       // 用户名
-    private String password;       // 密码
     private String nickname;       // 昵称
     private String email;          // 邮箱
     private String mobile;         // 手机号

@@ -5,15 +5,12 @@ import com.nrapendra.jooq.Tables;
 import com.nrapendra.jooq.tables.records.QuestionRecord;
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
-import org.chenjh.aiqasystem.domain.vo.QuestionQueryVO;
-import org.chenjh.aiqasystem.repo.JOOQRepository;
+import org.chenjh.aiqasystem.domain.dto.TagDTO;
+import org.chenjh.aiqasystem.domain.vo.question.QuestionQueryVO;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.jooq.types.UByte;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +19,7 @@ import static com.nrapendra.jooq.Tables.QA_QUESTION;
 import static com.nrapendra.jooq.tables.QuestionTagTb.QA_QUESTION_TAG;
 import static com.nrapendra.jooq.tables.TagTb.QA_TAG;
 import static org.chenjh.aiqasystem.common.CommonUtil.generateId;
-import static org.jooq.impl.DSL.multiset;
-import static org.jooq.impl.DSL.select;
+import static org.jooq.impl.DSL.*;
 
 /**
  * @author hjong
@@ -56,10 +52,10 @@ public class QuestionRepository{
 
 
     public Optional<QuestionRecord> findById(long id) {
-        QuestionRecord questionRecord = dsl.selectFrom(QA_QUESTION)
+
+        return dsl.selectFrom(QA_QUESTION)
                 .where(QA_QUESTION.QUESTION_ID.eq(id))
-                .fetchOne();
-        return (ObjectUtils.isEmpty(questionRecord)) ? Optional.empty() : Optional.of(questionRecord);
+                .fetchOptional();
     }
 
 
@@ -86,7 +82,9 @@ public class QuestionRepository{
                         multiset(
                                 select(
                                         QA_TAG.TAG_ID,
-                                        QA_TAG.TAG_NAME
+                                        QA_TAG.TAG_NAME,
+                                        QA_TAG.TAG_SORT,
+                                        QA_TAG.PARENT_TAG_ID
                                 ).from(QA_TAG).join(QA_QUESTION_TAG)
                                 .on(Tables.QA_TAG.TAG_ID.eq(QA_QUESTION_TAG.TAG_ID))
                                 .where( (question.getTagIds() == null || question.getTagIds().isEmpty()) ?
@@ -94,6 +92,11 @@ public class QuestionRepository{
                                         QA_QUESTION_TAG.QUESTION_ID.eq(QA_QUESTION.QUESTION_ID)
                                 )
                                 .orderBy(QA_TAG.TAG_SORT.asc())
+                        ).convertFrom(
+                                rs -> rs.map(
+                                        r -> new TagDTO(r.get(QA_TAG.TAG_ID), r.get(QA_TAG.TAG_NAME),
+                                                r.get(QA_TAG.TAG_SORT).intValue(),r.get(QA_TAG.PARENT_TAG_ID).intValue()
+                               ))
                         ).as("tags")
                 )
                 .from(QA_QUESTION)
@@ -113,13 +116,42 @@ public class QuestionRepository{
                 )
                 .limit(pageSize)
                 .offset(offset)
-                .fetch()
-                .into(QuestionDTO.class);
+                .fetch(r -> {
+                    QuestionDTO questionDTO = new QuestionDTO();
+                    questionDTO.setId(r.get(QA_QUESTION.QUESTION_ID));
+                    questionDTO.setTitle(r.get(QA_QUESTION.QUESTION_TITLE));
+                    questionDTO.setSolution(r.get(QA_QUESTION.QUESTION_SOLUTION));
+                    questionDTO.setDifficultyLevel(r.get(QA_QUESTION.DIFFICULTY).intValue());
+                    questionDTO.setViewCount(r.get(QA_QUESTION.VIEW_COUNT).intValue());
+                    questionDTO.setCreator(r.get(QA_QUESTION.CREATOR));
+                    questionDTO.setCreatorId(r.get(QA_QUESTION.CREATOR_USER_ID));
+                    questionDTO.setTags((List<TagDTO>) r.get("tags"));
+                    return questionDTO;
+                });
+
+        Long total = dsl
+                .selectCount()
+                .from(QA_QUESTION)
+                .join(Tables.QA_QUESTION_TAG)
+                .on(QA_QUESTION.QUESTION_ID.eq(Tables.QA_QUESTION_TAG.QUESTION_ID))
+                .where( (question.getTitle()== null || question.getTitle().isEmpty()) ?
+                        DSL.noCondition() :
+                        QA_QUESTION.QUESTION_TITLE.like(concat("%" + question.getTitle() + "%"))
+                )
+                .and( (question.getDifficulty() == null) ?
+                        DSL.noCondition() :
+                        QA_QUESTION.DIFFICULTY.eq(UByte.valueOf(question.getDifficulty()))
+                )
+                .and( (question.getTagIds() == null || question.getTagIds().isEmpty()) ?
+                        DSL.noCondition() :
+                        Tables.QA_QUESTION_TAG.TAG_ID.in(question.getTagIds())
+                )
+                .stream().count();
 
         return PageResult.<QuestionDTO>builder()
                 .page(pageNum)
                 .rows(pageSize)
-                .total(questionList.size())
+                .total(total)
                 .data(questionList)
                 .build();
     }

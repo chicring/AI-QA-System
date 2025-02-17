@@ -18,6 +18,6 @@ import java.util.List;
 public class PageResult<T> {
     private int page;
     private int rows;
-    private long total;
+    private Long total;
     private List<T> data;
 }

@@ -2,6 +2,7 @@ package org.chenjh.aiqasystem.controller.system;
 
 
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.chenjh.aiqasystem.config.OperationLog;
 import org.chenjh.aiqasystem.domain.Result;
 import org.chenjh.aiqasystem.domain.dto.system.UserInfoDTO;
@@ -21,13 +22,13 @@ public class UserController {
 
     @OperationLog("用户注册")
     @PostMapping("/register")
-    public Result<UserInfoDTO> register(@RequestBody UserRegisterVO vo) {
+    public Result<UserInfoDTO> register(@Valid @RequestBody UserRegisterVO vo) {
         return Result.ok(userService.register(vo));
     }
 
     @OperationLog("用户登录")
     @PostMapping("/login")
-    public Result<UserTokenDTO> login(@RequestBody UserLoginVO vo) {
+    public Result<UserTokenDTO> login(@Valid @RequestBody UserLoginVO vo) {
         return Result.ok(userService.login(vo));
     }
 
@@ -36,6 +37,5 @@ public class UserController {
     public Result<UserInfoDTO> getUserInfoByName(String userName) {
         return Result.ok(userService.getUserInfoByName(userName));
     }
-
 
 }
