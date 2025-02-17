@@ -45,4 +45,17 @@ public class TagQuestionRepository {
         }
         return step.execute() > 0;
     }
+
+    /**
+     * 删除问题标签
+     * @param questionId 问题id
+     * @param tagId 标签id
+     * @return boolean
+     */
+    public boolean deleteById(long questionId, long tagId) {
+        return dsl.delete(Tables.QA_QUESTION_TAG)
+                .where(Tables.QA_QUESTION_TAG.QUESTION_ID.eq(questionId))
+                .and(Tables.QA_QUESTION_TAG.TAG_ID.eq(tagId))
+                .execute() == 1;
+    }
 }

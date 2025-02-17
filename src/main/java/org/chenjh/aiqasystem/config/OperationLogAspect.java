@@ -38,7 +38,7 @@ public class OperationLogAspect {
         Object[] args = joinPoint.getArgs();
         String argsString = Arrays.toString(args);
         // 获取操作者用户名（假设使用 Spring Security）
-        String username = StpUtil.getLoginIdAsString();
+        String username = "测试";
 //        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        if (principal instanceof UserDetails) {
 //            username = ((UserDetails) principal).getUsername();

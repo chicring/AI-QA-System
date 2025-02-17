@@ -21,185 +21,199 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Setter for <code>ai_qa_system.sys_user.id</code>. 主键ID
+     */
+    public void setId(Long value) {
+        set(0, value);
+    }
+
+    /**
+     * Getter for <code>ai_qa_system.sys_user.id</code>. 主键ID
+     */
+    public Long getId() {
+        return (Long) get(0);
+    }
+
+    /**
      * Setter for <code>ai_qa_system.sys_user.username</code>. 用户名
      */
     public void setUsername(String value) {
-        set(0, value);
+        set(1, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.username</code>. 用户名
      */
     public String getUsername() {
-        return (String) get(0);
+        return (String) get(1);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.password</code>. 密码
      */
     public void setPassword(String value) {
-        set(1, value);
+        set(2, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.password</code>. 密码
      */
     public String getPassword() {
-        return (String) get(1);
+        return (String) get(2);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.nickname</code>. 昵称
      */
     public void setNickname(String value) {
-        set(2, value);
+        set(3, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.nickname</code>. 昵称
      */
     public String getNickname() {
-        return (String) get(2);
+        return (String) get(3);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.email</code>. 邮箱
      */
     public void setEmail(String value) {
-        set(3, value);
+        set(4, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.email</code>. 邮箱
      */
     public String getEmail() {
-        return (String) get(3);
+        return (String) get(4);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.mobile</code>. 手机号
      */
     public void setMobile(String value) {
-        set(4, value);
+        set(5, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.mobile</code>. 手机号
      */
     public String getMobile() {
-        return (String) get(4);
+        return (String) get(5);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.sex</code>. 性别：1-男性，2-女性
      */
     public void setSex(Integer value) {
-        set(5, value);
+        set(6, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.sex</code>. 性别：1-男性，2-女性
      */
     public Integer getSex() {
-        return (Integer) get(5);
+        return (Integer) get(6);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.avatar</code>. 头像（Base64）
      */
     public void setAvatar(String value) {
-        set(6, value);
+        set(7, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.avatar</code>. 头像（Base64）
      */
     public String getAvatar() {
-        return (String) get(6);
+        return (String) get(7);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.enabled</code>. 是否启用：1-启用，0-禁用
      */
     public void setEnabled(Boolean value) {
-        set(7, value);
+        set(8, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.enabled</code>. 是否启用：1-启用，0-禁用
      */
     public Boolean getEnabled() {
-        return (Boolean) get(7);
+        return (Boolean) get(8);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.login_ip</code>. 最近登录IP
      */
     public void setLoginIp(String value) {
-        set(8, value);
+        set(9, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.login_ip</code>. 最近登录IP
      */
     public String getLoginIp() {
-        return (String) get(8);
+        return (String) get(9);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.login_date</code>. 最近登录时间
      */
     public void setLoginDate(LocalDateTime value) {
-        set(9, value);
+        set(10, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.login_date</code>. 最近登录时间
      */
     public LocalDateTime getLoginDate() {
-        return (LocalDateTime) get(9);
+        return (LocalDateTime) get(10);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.create_time</code>. 创建时间
      */
     public void setCreateTime(LocalDateTime value) {
-        set(10, value);
+        set(11, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.create_time</code>. 创建时间
      */
     public LocalDateTime getCreateTime() {
-        return (LocalDateTime) get(10);
+        return (LocalDateTime) get(11);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.update_time</code>. 更新时间
      */
     public void setUpdateTime(LocalDateTime value) {
-        set(11, value);
+        set(12, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.update_time</code>. 更新时间
      */
     public LocalDateTime getUpdateTime() {
-        return (LocalDateTime) get(11);
+        return (LocalDateTime) get(12);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_user.creator</code>. 创建者
      */
     public void setCreator(String value) {
-        set(12, value);
+        set(13, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.creator</code>. 创建者
      */
     public String getCreator() {
-        return (String) get(12);
+        return (String) get(13);
     }
 
     // -------------------------------------------------------------------------
@@ -207,7 +221,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<String> key() {
+    public Record1<Long> key() {
         return (Record1) super.key();
     }
 
@@ -225,9 +239,10 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
     /**
      * Create a detached, initialised UserRecord
      */
-    public UserRecord(String username, String password, String nickname, String email, String mobile, Integer sex, String avatar, Boolean enabled, String loginIp, LocalDateTime loginDate, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public UserRecord(Long id, String username, String password, String nickname, String email, String mobile, Integer sex, String avatar, Boolean enabled, String loginIp, LocalDateTime loginDate, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
         super(UserTb.SYS_USER);
 
+        setId(id);
         setUsername(username);
         setPassword(password);
         setNickname(nickname);

@@ -5,6 +5,9 @@ import com.nrapendra.jooq.tables.records.UserRecord;
 import org.chenjh.aiqasystem.domain.entity.system.User;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
+
+import java.util.Optional;
 
 import static com.nrapendra.jooq.Tables.SYS_USER;
 
@@ -21,12 +24,12 @@ public class UserRepository {
         this.dsl = dsl;
     }
 
-    public User save(User user){
-        UserRecord userRecord = dsl.insertInto(SYS_USER)
-                .set(SYS_USER.USERNAME, user.getUsername())
-                .set(SYS_USER.PASSWORD, user.getPassword())
-                .returning()
-                .fetchOne();
-        return user;
+    public int save(UserRecord user){
+        return dsl.newRecord(SYS_USER,user).store();
+    }
+
+    public Optional<UserRecord> findByUsername(String username){
+        UserRecord userRecord = dsl.selectFrom(SYS_USER).where(SYS_USER.USERNAME.eq(username)).fetchOne();
+        return (ObjectUtils.isEmpty(userRecord)) ? Optional.empty() : Optional.of(userRecord);
     }
 }

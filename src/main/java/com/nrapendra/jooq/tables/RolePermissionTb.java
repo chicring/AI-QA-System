@@ -18,6 +18,7 @@ import java.util.List;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -57,6 +58,11 @@ public class RolePermissionTb extends TableImpl<RolePermissionRecord> {
     public Class<RolePermissionRecord> getRecordType() {
         return RolePermissionRecord.class;
     }
+
+    /**
+     * The column <code>ai_qa_system.sys_role_permission.id</code>. 主键ID
+     */
+    public final TableField<RolePermissionRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "主键ID");
 
     /**
      * The column <code>ai_qa_system.sys_role_permission.role_id</code>. 角色ID
@@ -153,6 +159,11 @@ public class RolePermissionTb extends TableImpl<RolePermissionRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : AiQaSystem.AI_QA_SYSTEM;
+    }
+
+    @Override
+    public Identity<RolePermissionRecord, Long> getIdentity() {
+        return (Identity<RolePermissionRecord, Long>) super.getIdentity();
     }
 
     @Override

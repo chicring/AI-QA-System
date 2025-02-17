@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.PlainSQL;
@@ -55,6 +56,11 @@ public class TagTb extends TableImpl<TagRecord> {
     public Class<TagRecord> getRecordType() {
         return TagRecord.class;
     }
+
+    /**
+     * The column <code>ai_qa_system.qa_tag.id</code>. 主键ID
+     */
+    public final TableField<TagRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "主键ID");
 
     /**
      * The column <code>ai_qa_system.qa_tag.tag_id</code>. 标签ID
@@ -138,6 +144,11 @@ public class TagTb extends TableImpl<TagRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.asList(Indexes.QA_TAG_IDX_PARENT_TAG_ID);
+    }
+
+    @Override
+    public Identity<TagRecord, Long> getIdentity() {
+        return (Identity<TagRecord, Long>) super.getIdentity();
     }
 
     @Override

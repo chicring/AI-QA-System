@@ -2,6 +2,7 @@ package org.chenjh.aiqasystem.config.satoken;
 
 import cn.dev33.satoken.stp.StpInterface;
 import org.chenjh.aiqasystem.repo.system.PermissionRepository;
+import org.chenjh.aiqasystem.repo.system.RolePermissionRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,8 +16,11 @@ public class StpInterfaceImpl  implements StpInterface {
 
     private final PermissionRepository permissionRepository;
 
-    public StpInterfaceImpl(PermissionRepository permissionRepository) {
+    private final RolePermissionRepository rolePermissionRepository;
+
+    public StpInterfaceImpl(PermissionRepository permissionRepository, RolePermissionRepository rolePermissionRepository) {
         this.permissionRepository = permissionRepository;
+        this.rolePermissionRepository = rolePermissionRepository;
     }
 
 
@@ -27,6 +31,6 @@ public class StpInterfaceImpl  implements StpInterface {
 
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        return List.of();
+        return rolePermissionRepository.queryPermissionScopeByUserId((String) loginId);
     }
 }

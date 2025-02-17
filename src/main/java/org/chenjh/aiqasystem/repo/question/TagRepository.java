@@ -36,4 +36,14 @@ public class TagRepository {
                 .into(TagRecord.class);
     }
 
+    /**
+     * 删除标签
+     * @param tagId 标签ID
+     * @return boolean
+     */
+    public boolean deleteById(long tagId) {
+        return dsl.delete(Tables.QA_TAG)
+                .where(Tables.QA_TAG.TAG_ID.eq(tagId))
+                .execute() == 1;
+    }
 }

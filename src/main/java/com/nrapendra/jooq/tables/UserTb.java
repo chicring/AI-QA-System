@@ -13,6 +13,7 @@ import java.util.Collection;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
@@ -49,6 +50,11 @@ public class UserTb extends TableImpl<UserRecord> {
     public Class<UserRecord> getRecordType() {
         return UserRecord.class;
     }
+
+    /**
+     * The column <code>ai_qa_system.sys_user.id</code>. 主键ID
+     */
+    public final TableField<UserRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "主键ID");
 
     /**
      * The column <code>ai_qa_system.sys_user.username</code>. 用户名
@@ -147,6 +153,11 @@ public class UserTb extends TableImpl<UserRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : AiQaSystem.AI_QA_SYSTEM;
+    }
+
+    @Override
+    public Identity<UserRecord, Long> getIdentity() {
+        return (Identity<UserRecord, Long>) super.getIdentity();
     }
 
     @Override

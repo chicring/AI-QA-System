@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.PlainSQL;
@@ -57,6 +58,11 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
     }
 
     /**
+     * The column <code>ai_qa_system.qa_question.id</code>. 主键ID
+     */
+    public final TableField<QuestionRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "主键ID");
+
+    /**
      * The column <code>ai_qa_system.qa_question.question_id</code>. 题目ID
      */
     public final TableField<QuestionRecord, Long> QUESTION_ID = createField(DSL.name("question_id"), SQLDataType.BIGINT.nullable(false), this, "题目ID");
@@ -72,10 +78,10 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
     public final TableField<QuestionRecord, String> QUESTION_SOLUTION = createField(DSL.name("question_solution"), SQLDataType.CLOB.nullable(false), this, "题解");
 
     /**
-     * The column <code>ai_qa_system.qa_question.difficulty_level</code>. 难度等级
-     * 1:简单 2:中等 3:困难
+     * The column <code>ai_qa_system.qa_question.difficulty</code>. 难度等级 1:简单
+     * 2:中等 3:困难
      */
-    public final TableField<QuestionRecord, UByte> DIFFICULTY_LEVEL = createField(DSL.name("difficulty_level"), SQLDataType.TINYINTUNSIGNED.nullable(false).defaultValue(DSL.inline("2", SQLDataType.TINYINTUNSIGNED)), this, "难度等级 1:简单 2:中等 3:困难");
+    public final TableField<QuestionRecord, UByte> DIFFICULTY = createField(DSL.name("difficulty"), SQLDataType.TINYINTUNSIGNED.nullable(false).defaultValue(DSL.inline("2", SQLDataType.TINYINTUNSIGNED)), this, "难度等级 1:简单 2:中等 3:困难");
 
     /**
      * The column <code>ai_qa_system.qa_question.creator_user_id</code>. 创建人ID
@@ -145,6 +151,11 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.asList(Indexes.QA_QUESTION_IDX_CREATOR_USER_ID, Indexes.QA_QUESTION_IDX_DIFFICULTY_LEVEL);
+    }
+
+    @Override
+    public Identity<QuestionRecord, Long> getIdentity() {
+        return (Identity<QuestionRecord, Long>) super.getIdentity();
     }
 
     @Override

@@ -10,8 +10,8 @@ public class TagConvert {
 
     public static TagDTO convert(TagRecord tagRecord) {
         return TagDTO.builder()
-                .id(tagRecord.getTagId())
-                .name(tagRecord.getTagName())
+                .tagId(tagRecord.getTagId())
+                .tagName(tagRecord.getTagName())
                 .sort(tagRecord.getTagSort().intValue())
                 .build();
     }

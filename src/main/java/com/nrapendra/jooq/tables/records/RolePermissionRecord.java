@@ -8,7 +8,7 @@ import com.nrapendra.jooq.tables.RolePermissionTb;
 
 import java.time.LocalDateTime;
 
-import org.jooq.Record2;
+import org.jooq.Record1;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
@@ -21,17 +21,31 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
     private static final long serialVersionUID = 1L;
 
     /**
+     * Setter for <code>ai_qa_system.sys_role_permission.id</code>. 主键ID
+     */
+    public void setId(Long value) {
+        set(0, value);
+    }
+
+    /**
+     * Getter for <code>ai_qa_system.sys_role_permission.id</code>. 主键ID
+     */
+    public Long getId() {
+        return (Long) get(0);
+    }
+
+    /**
      * Setter for <code>ai_qa_system.sys_role_permission.role_id</code>. 角色ID
      */
     public void setRoleId(Long value) {
-        set(0, value);
+        set(1, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_role_permission.role_id</code>. 角色ID
      */
     public Long getRoleId() {
-        return (Long) get(0);
+        return (Long) get(1);
     }
 
     /**
@@ -39,7 +53,7 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
      * 权限ID
      */
     public void setPermissionId(Long value) {
-        set(1, value);
+        set(2, value);
     }
 
     /**
@@ -47,7 +61,7 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
      * 权限ID
      */
     public Long getPermissionId() {
-        return (Long) get(1);
+        return (Long) get(2);
     }
 
     /**
@@ -55,7 +69,7 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
      * 创建时间
      */
     public void setCreateTime(LocalDateTime value) {
-        set(2, value);
+        set(3, value);
     }
 
     /**
@@ -63,7 +77,7 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
      * 创建时间
      */
     public LocalDateTime getCreateTime() {
-        return (LocalDateTime) get(2);
+        return (LocalDateTime) get(3);
     }
 
     /**
@@ -71,7 +85,7 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
      * 更新时间
      */
     public void setUpdateTime(LocalDateTime value) {
-        set(3, value);
+        set(4, value);
     }
 
     /**
@@ -79,21 +93,21 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
      * 更新时间
      */
     public LocalDateTime getUpdateTime() {
-        return (LocalDateTime) get(3);
+        return (LocalDateTime) get(4);
     }
 
     /**
      * Setter for <code>ai_qa_system.sys_role_permission.creator</code>. 创建者
      */
     public void setCreator(String value) {
-        set(4, value);
+        set(5, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_role_permission.creator</code>. 创建者
      */
     public String getCreator() {
-        return (String) get(4);
+        return (String) get(5);
     }
 
     // -------------------------------------------------------------------------
@@ -101,8 +115,8 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
     // -------------------------------------------------------------------------
 
     @Override
-    public Record2<Long, Long> key() {
-        return (Record2) super.key();
+    public Record1<Long> key() {
+        return (Record1) super.key();
     }
 
     // -------------------------------------------------------------------------
@@ -119,9 +133,10 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
     /**
      * Create a detached, initialised RolePermissionRecord
      */
-    public RolePermissionRecord(Long roleId, Long permissionId, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public RolePermissionRecord(Long id, Long roleId, Long permissionId, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
         super(RolePermissionTb.SYS_ROLE_PERMISSION);
 
+        setId(id);
         setRoleId(roleId);
         setPermissionId(permissionId);
         setCreateTime(createTime);

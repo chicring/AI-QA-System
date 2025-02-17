@@ -1,6 +1,5 @@
 package org.chenjh.aiqasystem.repo.system;
 
-import com.nrapendra.jooq.tables.PermissionTb;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 

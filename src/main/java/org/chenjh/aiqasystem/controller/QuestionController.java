@@ -30,12 +30,14 @@ public class QuestionController {
     }
 
     @GetMapping("/tag/{tagId}")
-    public Result<PageResult<QuestionDTO>> getQuestionByTitle(
+    public Result<PageResult<QuestionDTO>> getQuestionByTag(
             @PathVariable Long tagId,
             QuestionQueryVO questionQueryVO) {
 
 //        questionQueryVO.getTagIds().add(tagId);
         return Result.ok(questionService.getQuestionList(questionQueryVO));
     }
+
+
 
 }

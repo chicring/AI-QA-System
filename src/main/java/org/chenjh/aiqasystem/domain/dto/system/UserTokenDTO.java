@@ -1,4 +1,4 @@
-package org.chenjh.aiqasystem.domain.dto;
+package org.chenjh.aiqasystem.domain.dto.system;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TagDTO {
-    private Long tagId;
-    private String tagName;
-    private Integer sort;
+public class UserTokenDTO {
+    private String username;
+    private String nickname;
+    private String token;
 }

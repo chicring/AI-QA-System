@@ -18,7 +18,12 @@ import org.springframework.util.ObjectUtils;
 import java.util.List;
 import java.util.Optional;
 
+import static com.nrapendra.jooq.Tables.QA_QUESTION;
+import static com.nrapendra.jooq.tables.QuestionTagTb.QA_QUESTION_TAG;
+import static com.nrapendra.jooq.tables.TagTb.QA_TAG;
 import static org.chenjh.aiqasystem.common.CommonUtil.generateId;
+import static org.jooq.impl.DSL.multiset;
+import static org.jooq.impl.DSL.select;
 
 /**
  * @author hjong
@@ -36,7 +41,7 @@ public class QuestionRepository{
     //// 插入并返回插入后的数据
     public QuestionRecord save(QuestionRecord tablePojo) {
         tablePojo.setQuestionId(generateId());
-        QuestionRecord questionRecord = dsl.newRecord(Tables.QA_QUESTION,tablePojo);
+        QuestionRecord questionRecord = dsl.newRecord(QA_QUESTION,tablePojo);
         questionRecord.store();
         return questionRecord;
     }
@@ -46,21 +51,21 @@ public class QuestionRepository{
     }
 
     public List<QuestionRecord> findAll() {
-        return dsl.selectFrom(Tables.QA_QUESTION).fetchInto(QuestionRecord.class);
+        return dsl.selectFrom(QA_QUESTION).fetchInto(QuestionRecord.class);
     }
 
 
     public Optional<QuestionRecord> findById(long id) {
-        QuestionRecord questionRecord = dsl.selectFrom(Tables.QA_QUESTION)
-                .where(Tables.QA_QUESTION.QUESTION_ID.eq(id))
+        QuestionRecord questionRecord = dsl.selectFrom(QA_QUESTION)
+                .where(QA_QUESTION.QUESTION_ID.eq(id))
                 .fetchOne();
         return (ObjectUtils.isEmpty(questionRecord)) ? Optional.empty() : Optional.of(questionRecord);
     }
 
 
     public boolean deleteById(long id) {
-        return dsl.delete(Tables.QA_QUESTION)
-                .where(Tables.QA_QUESTION.QUESTION_ID.eq(id))
+        return dsl.delete(QA_QUESTION)
+                .where(QA_QUESTION.QUESTION_ID.eq(id))
                 .execute() == 1;
     }
 
@@ -69,17 +74,38 @@ public class QuestionRepository{
         int pageSize = question.getPageSize() != null ? question.getPageSize() : 10;
         int offset = (pageNum - 1) * pageSize;
 
-        List<QuestionDTO> questionList = dsl.select()
-                .from(Tables.QA_QUESTION)
+        List<QuestionDTO> questionList = dsl
+                .select(
+                        QA_QUESTION.QUESTION_ID,
+                        QA_QUESTION.QUESTION_TITLE,
+                        QA_QUESTION.QUESTION_SOLUTION,
+                        QA_QUESTION.DIFFICULTY,
+                        QA_QUESTION.VIEW_COUNT,
+                        QA_QUESTION.CREATOR,
+                        QA_QUESTION.CREATOR_USER_ID,
+                        multiset(
+                                select(
+                                        QA_TAG.TAG_ID,
+                                        QA_TAG.TAG_NAME
+                                ).from(QA_TAG).join(QA_QUESTION_TAG)
+                                .on(Tables.QA_TAG.TAG_ID.eq(QA_QUESTION_TAG.TAG_ID))
+                                .where( (question.getTagIds() == null || question.getTagIds().isEmpty()) ?
+                                        DSL.noCondition() :
+                                        QA_QUESTION_TAG.QUESTION_ID.eq(QA_QUESTION.QUESTION_ID)
+                                )
+                                .orderBy(QA_TAG.TAG_SORT.asc())
+                        ).as("tags")
+                )
+                .from(QA_QUESTION)
                 .join(Tables.QA_QUESTION_TAG)
-                .on(Tables.QA_QUESTION.QUESTION_ID.eq(Tables.QA_QUESTION_TAG.QUESTION_ID))
+                .on(QA_QUESTION.QUESTION_ID.eq(Tables.QA_QUESTION_TAG.QUESTION_ID))
                 .where( (question.getTitle()== null || question.getTitle().isEmpty()) ?
                         DSL.noCondition() :
-                        Tables.QA_QUESTION.QUESTION_TITLE.like(question.getTitle())
+                        QA_QUESTION.QUESTION_TITLE.like(question.getTitle())
                 )
                 .and( (question.getDifficulty() == null) ?
                         DSL.noCondition() :
-                        Tables.QA_QUESTION.DIFFICULTY_LEVEL.eq(UByte.valueOf(question.getDifficulty()))
+                        QA_QUESTION.DIFFICULTY.eq(UByte.valueOf(question.getDifficulty()))
                 )
                 .and( (question.getTagIds() == null || question.getTagIds().isEmpty()) ?
                         DSL.noCondition() :

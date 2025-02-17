@@ -6,7 +6,6 @@ package com.nrapendra.jooq.tables;
 
 import com.nrapendra.jooq.AiQaSystem;
 import com.nrapendra.jooq.Keys;
-import com.nrapendra.jooq.tables.PermissionTb.SysPermissionPath;
 import com.nrapendra.jooq.tables.RolePermissionTb.SysRolePermissionPath;
 import com.nrapendra.jooq.tables.records.RoleRecord;
 
@@ -185,14 +184,6 @@ public class RoleTb extends TableImpl<RoleRecord> {
             _sysRolePermission = new SysRolePermissionPath(this, null, Keys.SYS_ROLE_PERMISSION_SYS_ROLE_FK.getInverseKey());
 
         return _sysRolePermission;
-    }
-
-    /**
-     * Get the implicit many-to-many join path to the
-     * <code>ai_qa_system.sys_permission</code> table
-     */
-    public SysPermissionPath sysPermission() {
-        return sysRolePermission().sysPermission();
     }
 
     @Override

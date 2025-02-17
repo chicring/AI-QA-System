@@ -16,7 +16,7 @@ public class QuestionConvert {
                 .id(question.getQuestionId())
                 .title(question.getQuestionTitle())
                 .solution(question.getQuestionSolution())
-                .difficultyLevel(question.getDifficultyLevel().intValue())
+                .difficultyLevel(question.getDifficulty().intValue())
                 .viewCount(question.getViewCount().intValue())
                 .creator(question.getCreator())
                 .creatorId(question.getCreatorUserId())
@@ -28,7 +28,7 @@ public class QuestionConvert {
         QuestionRecord questionRecord = new QuestionRecord();
         questionRecord.setQuestionTitle(question.getTitle());
         questionRecord.setQuestionSolution(question.getSolution());
-        questionRecord.setDifficultyLevel(UByte.valueOf(question.getDifficultyLevel()));
+        questionRecord.setDifficulty(UByte.valueOf(question.getDifficultyLevel()));
         questionRecord.setCreator(question.getCreator());
         questionRecord.setCreatorUserId(question.getCreatorId());
         return questionRecord;

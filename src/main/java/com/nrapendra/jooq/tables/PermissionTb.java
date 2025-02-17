@@ -7,7 +7,6 @@ package com.nrapendra.jooq.tables;
 import com.nrapendra.jooq.AiQaSystem;
 import com.nrapendra.jooq.Keys;
 import com.nrapendra.jooq.tables.RolePermissionTb.SysRolePermissionPath;
-import com.nrapendra.jooq.tables.RoleTb.SysRolePath;
 import com.nrapendra.jooq.tables.records.PermissionRecord;
 
 import java.time.LocalDateTime;
@@ -16,6 +15,7 @@ import java.util.Collection;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.InverseForeignKey;
 import org.jooq.Name;
 import org.jooq.Path;
@@ -59,7 +59,7 @@ public class PermissionTb extends TableImpl<PermissionRecord> {
     /**
      * The column <code>ai_qa_system.sys_permission.id</code>. 权限ID
      */
-    public final TableField<PermissionRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "权限ID");
+    public final TableField<PermissionRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "权限ID");
 
     /**
      * The column <code>ai_qa_system.sys_permission.name</code>. 权限名称
@@ -156,6 +156,11 @@ public class PermissionTb extends TableImpl<PermissionRecord> {
     }
 
     @Override
+    public Identity<PermissionRecord, Long> getIdentity() {
+        return (Identity<PermissionRecord, Long>) super.getIdentity();
+    }
+
+    @Override
     public UniqueKey<PermissionRecord> getPrimaryKey() {
         return Keys.KEY_SYS_PERMISSION_PRIMARY;
     }
@@ -171,14 +176,6 @@ public class PermissionTb extends TableImpl<PermissionRecord> {
             _sysRolePermission = new SysRolePermissionPath(this, null, Keys.SYS_ROLE_PERMISSION_SYS_PERMISSION_FK.getInverseKey());
 
         return _sysRolePermission;
-    }
-
-    /**
-     * Get the implicit many-to-many join path to the
-     * <code>ai_qa_system.sys_role</code> table
-     */
-    public SysRolePath sysRole() {
-        return sysRolePermission().sysRole();
     }
 
     @Override

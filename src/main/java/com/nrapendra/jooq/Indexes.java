@@ -26,7 +26,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index QA_QUESTION_IDX_CREATOR_USER_ID = Internal.createIndex(DSL.name("idx_creator_user_id"), QuestionTb.QA_QUESTION, new OrderField[] { QuestionTb.QA_QUESTION.CREATOR }, false);
-    public static final Index QA_QUESTION_IDX_DIFFICULTY_LEVEL = Internal.createIndex(DSL.name("idx_difficulty_level"), QuestionTb.QA_QUESTION, new OrderField[] { QuestionTb.QA_QUESTION.DIFFICULTY_LEVEL }, false);
+    public static final Index QA_QUESTION_IDX_DIFFICULTY_LEVEL = Internal.createIndex(DSL.name("idx_difficulty_level"), QuestionTb.QA_QUESTION, new OrderField[] { QuestionTb.QA_QUESTION.DIFFICULTY }, false);
     public static final Index QA_TAG_IDX_PARENT_TAG_ID = Internal.createIndex(DSL.name("idx_parent_tag_id"), TagTb.QA_TAG, new OrderField[] { TagTb.QA_TAG.PARENT_TAG_ID }, false);
     public static final Index SYS_USER_ROLE_IDX_ROLE_ID = Internal.createIndex(DSL.name("idx_role_id"), UserRoleTb.SYS_USER_ROLE, new OrderField[] { UserRoleTb.SYS_USER_ROLE.ROLE_ID }, false);
     public static final Index QA_QUESTION_TAG_IDX_TAG_ID = Internal.createIndex(DSL.name("idx_tag_id"), QuestionTagTb.QA_QUESTION_TAG, new OrderField[] { QuestionTagTb.QA_QUESTION_TAG.TAG_ID }, false);
