@@ -5,19 +5,15 @@ package com.nrapendra.jooq.tables;
 
 
 import com.nrapendra.jooq.AiQaSystem;
-import com.nrapendra.jooq.Indexes;
 import com.nrapendra.jooq.Keys;
 import com.nrapendra.jooq.tables.records.TagRecord;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
@@ -32,7 +28,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UByte;
 import org.jooq.types.UInteger;
 
 
@@ -63,34 +58,24 @@ public class TagTb extends TableImpl<TagRecord> {
     public final TableField<TagRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "主键ID");
 
     /**
-     * The column <code>ai_qa_system.qa_tag.tag_id</code>. 标签ID
-     */
-    public final TableField<TagRecord, Long> TAG_ID = createField(DSL.name("tag_id"), SQLDataType.BIGINT.nullable(false), this, "标签ID");
-
-    /**
      * The column <code>ai_qa_system.qa_tag.tag_name</code>. 标签名称
      */
     public final TableField<TagRecord, String> TAG_NAME = createField(DSL.name("tag_name"), SQLDataType.VARCHAR(50).nullable(false), this, "标签名称");
 
     /**
-     * The column <code>ai_qa_system.qa_tag.parent_tag_id</code>. 父标签ID
+     * The column <code>ai_qa_system.qa_tag.category_id</code>. 分类ID
      */
-    public final TableField<TagRecord, Long> PARENT_TAG_ID = createField(DSL.name("parent_tag_id"), SQLDataType.BIGINT, this, "父标签ID");
+    public final TableField<TagRecord, Long> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.BIGINT, this, "分类ID");
 
     /**
-     * The column <code>ai_qa_system.qa_tag.tag_level</code>. 标签层级 1:一级标签 2:二级标签
+     * The column <code>ai_qa_system.qa_tag.sort_num</code>. 排序号
      */
-    public final TableField<TagRecord, UByte> TAG_LEVEL = createField(DSL.name("tag_level"), SQLDataType.TINYINTUNSIGNED.nullable(false), this, "标签层级 1:一级标签 2:二级标签");
-
-    /**
-     * The column <code>ai_qa_system.qa_tag.tag_sort</code>. 排序号
-     */
-    public final TableField<TagRecord, UInteger> TAG_SORT = createField(DSL.name("tag_sort"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGERUNSIGNED)), this, "排序号");
+    public final TableField<TagRecord, UInteger> SORT_NUM = createField(DSL.name("sort_num"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGERUNSIGNED)), this, "排序号");
 
     /**
      * The column <code>ai_qa_system.qa_tag.tag_status</code>. 状态 1:正常 0:禁用
      */
-    public final TableField<TagRecord, UByte> TAG_STATUS = createField(DSL.name("tag_status"), SQLDataType.TINYINTUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.TINYINTUNSIGNED)), this, "状态 1:正常 0:禁用");
+    public final TableField<TagRecord, UInteger> TAG_STATUS = createField(DSL.name("tag_status"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGERUNSIGNED)), this, "状态 1:正常 0:禁用");
 
     /**
      * The column <code>ai_qa_system.qa_tag.create_time</code>. 创建时间
@@ -142,11 +127,6 @@ public class TagTb extends TableImpl<TagRecord> {
     }
 
     @Override
-    public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.QA_TAG_IDX_PARENT_TAG_ID);
-    }
-
-    @Override
     public Identity<TagRecord, Long> getIdentity() {
         return (Identity<TagRecord, Long>) super.getIdentity();
     }
@@ -154,11 +134,6 @@ public class TagTb extends TableImpl<TagRecord> {
     @Override
     public UniqueKey<TagRecord> getPrimaryKey() {
         return Keys.KEY_QA_TAG_PRIMARY;
-    }
-
-    @Override
-    public List<UniqueKey<TagRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.KEY_QA_TAG_UK_TAG_NAME);
     }
 
     @Override

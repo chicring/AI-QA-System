@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 import org.jooq.Record1;
 import org.jooq.impl.UpdatableRecordImpl;
-import org.jooq.types.UByte;
 import org.jooq.types.UInteger;
 
 
@@ -65,16 +64,16 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
     }
 
     /**
-     * Setter for <code>ai_qa_system.qa_question.question_solution</code>. 题解
+     * Setter for <code>ai_qa_system.qa_question.question_tips</code>. 题目提示
      */
-    public void setQuestionSolution(String value) {
+    public void setQuestionTips(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>ai_qa_system.qa_question.question_solution</code>. 题解
+     * Getter for <code>ai_qa_system.qa_question.question_tips</code>. 题目提示
      */
-    public String getQuestionSolution() {
+    public String getQuestionTips() {
         return (String) get(3);
     }
 
@@ -82,7 +81,7 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
      * Setter for <code>ai_qa_system.qa_question.difficulty</code>. 难度等级 1:简单
      * 2:中等 3:困难
      */
-    public void setDifficulty(UByte value) {
+    public void setDifficulty(UInteger value) {
         set(4, value);
     }
 
@@ -90,94 +89,96 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
      * Getter for <code>ai_qa_system.qa_question.difficulty</code>. 难度等级 1:简单
      * 2:中等 3:困难
      */
-    public UByte getDifficulty() {
-        return (UByte) get(4);
-    }
-
-    /**
-     * Setter for <code>ai_qa_system.qa_question.creator_user_id</code>. 创建人ID
-     */
-    public void setCreatorUserId(Long value) {
-        set(5, value);
-    }
-
-    /**
-     * Getter for <code>ai_qa_system.qa_question.creator_user_id</code>. 创建人ID
-     */
-    public Long getCreatorUserId() {
-        return (Long) get(5);
+    public UInteger getDifficulty() {
+        return (UInteger) get(4);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_question.view_count</code>. 浏览次数
      */
     public void setViewCount(UInteger value) {
-        set(6, value);
+        set(5, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_question.view_count</code>. 浏览次数
      */
     public UInteger getViewCount() {
-        return (UInteger) get(6);
+        return (UInteger) get(5);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_question.question_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public void setQuestionStatus(UByte value) {
-        set(7, value);
+    public void setQuestionStatus(UInteger value) {
+        set(6, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_question.question_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public UByte getQuestionStatus() {
-        return (UByte) get(7);
+    public UInteger getQuestionStatus() {
+        return (UInteger) get(6);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_question.create_time</code>. 创建时间
      */
     public void setCreateTime(LocalDateTime value) {
-        set(8, value);
+        set(7, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_question.create_time</code>. 创建时间
      */
     public LocalDateTime getCreateTime() {
-        return (LocalDateTime) get(8);
+        return (LocalDateTime) get(7);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_question.update_time</code>. 修改时间
      */
     public void setUpdateTime(LocalDateTime value) {
-        set(9, value);
+        set(8, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_question.update_time</code>. 修改时间
      */
     public LocalDateTime getUpdateTime() {
-        return (LocalDateTime) get(9);
+        return (LocalDateTime) get(8);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_question.creator</code>. 创建者
      */
     public void setCreator(String value) {
-        set(10, value);
+        set(9, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_question.creator</code>. 创建者
      */
     public String getCreator() {
-        return (String) get(10);
+        return (String) get(9);
+    }
+
+    /**
+     * Setter for <code>ai_qa_system.qa_question.is_deleted</code>. 是否删除 0: 未删除
+     * 1: 已删除
+     */
+    public void setIsDeleted(Integer value) {
+        set(10, value);
+    }
+
+    /**
+     * Getter for <code>ai_qa_system.qa_question.is_deleted</code>. 是否删除 0: 未删除
+     * 1: 已删除
+     */
+    public Integer getIsDeleted() {
+        return (Integer) get(10);
     }
 
     // -------------------------------------------------------------------------
@@ -203,20 +204,20 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
     /**
      * Create a detached, initialised QuestionRecord
      */
-    public QuestionRecord(Long id, Long questionId, String questionTitle, String questionSolution, UByte difficulty, Long creatorUserId, UInteger viewCount, UByte questionStatus, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public QuestionRecord(Long id, Long questionId, String questionTitle, String questionTips, UInteger difficulty, UInteger viewCount, UInteger questionStatus, LocalDateTime createTime, LocalDateTime updateTime, String creator, Integer isDeleted) {
         super(QuestionTb.QA_QUESTION);
 
         setId(id);
         setQuestionId(questionId);
         setQuestionTitle(questionTitle);
-        setQuestionSolution(questionSolution);
+        setQuestionTips(questionTips);
         setDifficulty(difficulty);
-        setCreatorUserId(creatorUserId);
         setViewCount(viewCount);
         setQuestionStatus(questionStatus);
         setCreateTime(createTime);
         setUpdateTime(updateTime);
         setCreator(creator);
+        setIsDeleted(isDeleted);
         resetChangedOnNotNull();
     }
 }

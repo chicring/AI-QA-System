@@ -135,15 +135,15 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
     /**
      * Setter for <code>ai_qa_system.sys_user.enabled</code>. 是否启用：1-启用，0-禁用
      */
-    public void setEnabled(Boolean value) {
+    public void setEnabled(Integer value) {
         set(8, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_user.enabled</code>. 是否启用：1-启用，0-禁用
      */
-    public Boolean getEnabled() {
-        return (Boolean) get(8);
+    public Integer getEnabled() {
+        return (Integer) get(8);
     }
 
     /**
@@ -239,7 +239,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> {
     /**
      * Create a detached, initialised UserRecord
      */
-    public UserRecord(Long id, String username, String password, String nickname, String email, String mobile, Integer sex, String avatar, Boolean enabled, String loginIp, LocalDateTime loginDate, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public UserRecord(Long id, String username, String password, String nickname, String email, String mobile, Integer sex, String avatar, Integer enabled, String loginIp, LocalDateTime loginDate, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
         super(UserTb.SYS_USER);
 
         setId(id);

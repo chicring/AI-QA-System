@@ -5,19 +5,15 @@ package com.nrapendra.jooq.tables;
 
 
 import com.nrapendra.jooq.AiQaSystem;
-import com.nrapendra.jooq.Indexes;
 import com.nrapendra.jooq.Keys;
 import com.nrapendra.jooq.tables.records.QuestionRecord;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
@@ -32,7 +28,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UByte;
 import org.jooq.types.UInteger;
 
 
@@ -73,20 +68,15 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
     public final TableField<QuestionRecord, String> QUESTION_TITLE = createField(DSL.name("question_title"), SQLDataType.VARCHAR(255).nullable(false), this, "题目标题");
 
     /**
-     * The column <code>ai_qa_system.qa_question.question_solution</code>. 题解
+     * The column <code>ai_qa_system.qa_question.question_tips</code>. 题目提示
      */
-    public final TableField<QuestionRecord, String> QUESTION_SOLUTION = createField(DSL.name("question_solution"), SQLDataType.CLOB.nullable(false), this, "题解");
+    public final TableField<QuestionRecord, String> QUESTION_TIPS = createField(DSL.name("question_tips"), SQLDataType.VARCHAR(255), this, "题目提示");
 
     /**
      * The column <code>ai_qa_system.qa_question.difficulty</code>. 难度等级 1:简单
      * 2:中等 3:困难
      */
-    public final TableField<QuestionRecord, UByte> DIFFICULTY = createField(DSL.name("difficulty"), SQLDataType.TINYINTUNSIGNED.nullable(false).defaultValue(DSL.inline("2", SQLDataType.TINYINTUNSIGNED)), this, "难度等级 1:简单 2:中等 3:困难");
-
-    /**
-     * The column <code>ai_qa_system.qa_question.creator_user_id</code>. 创建人ID
-     */
-    public final TableField<QuestionRecord, Long> CREATOR_USER_ID = createField(DSL.name("creator_user_id"), SQLDataType.BIGINT.nullable(false), this, "创建人ID");
+    public final TableField<QuestionRecord, UInteger> DIFFICULTY = createField(DSL.name("difficulty"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("2", SQLDataType.INTEGERUNSIGNED)), this, "难度等级 1:简单 2:中等 3:困难");
 
     /**
      * The column <code>ai_qa_system.qa_question.view_count</code>. 浏览次数
@@ -97,7 +87,7 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
      * The column <code>ai_qa_system.qa_question.question_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public final TableField<QuestionRecord, UByte> QUESTION_STATUS = createField(DSL.name("question_status"), SQLDataType.TINYINTUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.TINYINTUNSIGNED)), this, "状态 1:正常 0:禁用");
+    public final TableField<QuestionRecord, UInteger> QUESTION_STATUS = createField(DSL.name("question_status"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGERUNSIGNED)), this, "状态 1:正常 0:禁用");
 
     /**
      * The column <code>ai_qa_system.qa_question.create_time</code>. 创建时间
@@ -113,6 +103,12 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
      * The column <code>ai_qa_system.qa_question.creator</code>. 创建者
      */
     public final TableField<QuestionRecord, String> CREATOR = createField(DSL.name("creator"), SQLDataType.VARCHAR(255), this, "创建者");
+
+    /**
+     * The column <code>ai_qa_system.qa_question.is_deleted</code>. 是否删除 0: 未删除
+     * 1: 已删除
+     */
+    public final TableField<QuestionRecord, Integer> IS_DELETED = createField(DSL.name("is_deleted"), SQLDataType.INTEGER.defaultValue(DSL.inline("0", SQLDataType.INTEGER)), this, "是否删除 0: 未删除 1: 已删除");
 
     private QuestionTb(Name alias, Table<QuestionRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -146,11 +142,6 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : AiQaSystem.AI_QA_SYSTEM;
-    }
-
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.QA_QUESTION_IDX_CREATOR_USER_ID, Indexes.QA_QUESTION_IDX_DIFFICULTY_LEVEL);
     }
 
     @Override

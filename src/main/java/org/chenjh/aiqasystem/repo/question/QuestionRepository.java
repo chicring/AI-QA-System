@@ -7,6 +7,7 @@ import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
 import org.chenjh.aiqasystem.domain.dto.TagDTO;
 import org.chenjh.aiqasystem.domain.vo.question.QuestionQueryVO;
+import org.chenjh.aiqasystem.repo.RecordMapping;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.jooq.types.UByte;
@@ -39,6 +40,8 @@ public class QuestionRepository{
         tablePojo.setQuestionId(generateId());
         QuestionRecord questionRecord = dsl.newRecord(QA_QUESTION,tablePojo);
         questionRecord.store();
+
+
         return questionRecord;
     }
 

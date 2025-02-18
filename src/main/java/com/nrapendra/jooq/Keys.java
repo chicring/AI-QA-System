@@ -4,17 +4,21 @@
 package com.nrapendra.jooq;
 
 
+import com.nrapendra.jooq.tables.AnswerTb;
+import com.nrapendra.jooq.tables.CategoryTb;
+import com.nrapendra.jooq.tables.MappingTb;
 import com.nrapendra.jooq.tables.PermissionTb;
-import com.nrapendra.jooq.tables.QuestionTagTb;
 import com.nrapendra.jooq.tables.QuestionTb;
 import com.nrapendra.jooq.tables.RolePermissionTb;
 import com.nrapendra.jooq.tables.RoleTb;
 import com.nrapendra.jooq.tables.TagTb;
 import com.nrapendra.jooq.tables.UserRoleTb;
 import com.nrapendra.jooq.tables.UserTb;
+import com.nrapendra.jooq.tables.records.AnswerRecord;
+import com.nrapendra.jooq.tables.records.CategoryRecord;
+import com.nrapendra.jooq.tables.records.MappingRecord;
 import com.nrapendra.jooq.tables.records.PermissionRecord;
 import com.nrapendra.jooq.tables.records.QuestionRecord;
-import com.nrapendra.jooq.tables.records.QuestionTagRecord;
 import com.nrapendra.jooq.tables.records.RolePermissionRecord;
 import com.nrapendra.jooq.tables.records.RoleRecord;
 import com.nrapendra.jooq.tables.records.TagRecord;
@@ -39,11 +43,11 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<AnswerRecord> KEY_QA_ANSWER_PRIMARY = Internal.createUniqueKey(AnswerTb.QA_ANSWER, DSL.name("KEY_qa_answer_PRIMARY"), new TableField[] { AnswerTb.QA_ANSWER.ID }, true);
+    public static final UniqueKey<CategoryRecord> KEY_QA_CATEGORY_PRIMARY = Internal.createUniqueKey(CategoryTb.QA_CATEGORY, DSL.name("KEY_qa_category_PRIMARY"), new TableField[] { CategoryTb.QA_CATEGORY.ID }, true);
+    public static final UniqueKey<MappingRecord> KEY_QA_MAPPING_PRIMARY = Internal.createUniqueKey(MappingTb.QA_MAPPING, DSL.name("KEY_qa_mapping_PRIMARY"), new TableField[] { MappingTb.QA_MAPPING.ID }, true);
     public static final UniqueKey<QuestionRecord> KEY_QA_QUESTION_PRIMARY = Internal.createUniqueKey(QuestionTb.QA_QUESTION, DSL.name("KEY_qa_question_PRIMARY"), new TableField[] { QuestionTb.QA_QUESTION.ID }, true);
-    public static final UniqueKey<QuestionTagRecord> KEY_QA_QUESTION_TAG_PRIMARY = Internal.createUniqueKey(QuestionTagTb.QA_QUESTION_TAG, DSL.name("KEY_qa_question_tag_PRIMARY"), new TableField[] { QuestionTagTb.QA_QUESTION_TAG.QUESTION_TAG_ID }, true);
-    public static final UniqueKey<QuestionTagRecord> KEY_QA_QUESTION_TAG_UK_QUESTION_TAG = Internal.createUniqueKey(QuestionTagTb.QA_QUESTION_TAG, DSL.name("KEY_qa_question_tag_uk_question_tag"), new TableField[] { QuestionTagTb.QA_QUESTION_TAG.QUESTION_ID, QuestionTagTb.QA_QUESTION_TAG.TAG_ID }, true);
     public static final UniqueKey<TagRecord> KEY_QA_TAG_PRIMARY = Internal.createUniqueKey(TagTb.QA_TAG, DSL.name("KEY_qa_tag_PRIMARY"), new TableField[] { TagTb.QA_TAG.ID }, true);
-    public static final UniqueKey<TagRecord> KEY_QA_TAG_UK_TAG_NAME = Internal.createUniqueKey(TagTb.QA_TAG, DSL.name("KEY_qa_tag_uk_tag_name"), new TableField[] { TagTb.QA_TAG.TAG_NAME }, true);
     public static final UniqueKey<PermissionRecord> KEY_SYS_PERMISSION_PRIMARY = Internal.createUniqueKey(PermissionTb.SYS_PERMISSION, DSL.name("KEY_sys_permission_PRIMARY"), new TableField[] { PermissionTb.SYS_PERMISSION.ID }, true);
     public static final UniqueKey<RoleRecord> KEY_SYS_ROLE_PRIMARY = Internal.createUniqueKey(RoleTb.SYS_ROLE, DSL.name("KEY_sys_role_PRIMARY"), new TableField[] { RoleTb.SYS_ROLE.ID }, true);
     public static final UniqueKey<RolePermissionRecord> KEY_SYS_ROLE_PERMISSION_PRIMARY = Internal.createUniqueKey(RolePermissionTb.SYS_ROLE_PERMISSION, DSL.name("KEY_sys_role_permission_PRIMARY"), new TableField[] { RolePermissionTb.SYS_ROLE_PERMISSION.ID }, true);

@@ -1,31 +1,42 @@
+-- 题目分类表
+CREATE TABLE `qa_category` (
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                               `category_name` varchar(50) NOT NULL COMMENT '分类名称',
+                               `category_level` int unsigned DEFAULT '1' NOT NULL COMMENT '标签层级 1:一级标签 2:二级标签',
+                               `category_status` int unsigned DEFAULT '1' NOT NULL DEFAULT '1' COMMENT '状态 1:正常 0:禁用',
+                               `image_url` varchar(256) DEFAULT NULL COMMENT '图标连接',
+                               'description' varchar(256) DEFAULT NULL COMMENT '描述',
+                               `parent_category_id` bigint DEFAULT NULL COMMENT '父分类ID',
+                               `sort_num` int unsigned NOT NULL DEFAULT '0' COMMENT '排序号',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                               `creator` varchar(255) NULL DEFAULT NULL COMMENT '创建者',
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='题目分类表';
+
 -- 标签表（支持分级）
 CREATE TABLE `qa_tag` (
                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-                          `tag_id` bigint NOT NULL COMMENT '标签ID',
                           `tag_name` varchar(50) NOT NULL COMMENT '标签名称',
-                          `parent_tag_id` bigint DEFAULT NULL COMMENT '父标签ID',
-                          `tag_level` tinyint unsigned NOT NULL COMMENT '标签层级 1:一级标签 2:二级标签',
-                          `tag_sort` int unsigned NOT NULL DEFAULT '0' COMMENT '排序号',
-                          `tag_status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '状态 1:正常 0:禁用',
+                          `category_id` bigint DEFAULT NULL COMMENT '分类ID',
+                          `sort_num` int unsigned NOT NULL DEFAULT '0' COMMENT '排序号',
+                          `tag_status` int unsigned NOT NULL DEFAULT '1' COMMENT '状态 1:正常 0:禁用',
                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
                           `creator` varchar(255) NULL DEFAULT NULL COMMENT '创建者',
-                          PRIMARY KEY (`id`),
-                          UNIQUE KEY `uk_tag_name` (`tag_name`),
-                          KEY `idx_parent_tag_id` (`parent_tag_id`)
+                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='标签表';
 
 -- 题目标签关联表
-CREATE TABLE `qa_question_tag` (
-                                   `question_tag_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+CREATE TABLE `qa_mapping` (
+                                   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
                                    `question_id` bigint NOT NULL COMMENT '题目ID',
+                                   `category_id` bigint NOT NULL  COMMENT '分类ID',
                                    `tag_id` bigint NOT NULL COMMENT '标签ID',
                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
                                    `creator` varchar(255) NULL DEFAULT NULL COMMENT '创建者',
-                                   PRIMARY KEY (`question_tag_id`),
-                                   UNIQUE KEY `uk_question_tag` (`question_id`, `tag_id`),
-                                   KEY `idx_tag_id` (`tag_id`)
+                                   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='题目标签关联表';
 
 -- 题目表
@@ -33,18 +44,29 @@ CREATE TABLE `qa_question` (
                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
                                `question_id` bigint NOT NULL COMMENT '题目ID',
                                `question_title` varchar(255) NOT NULL COMMENT '题目标题',
-                               `question_solution` text NOT NULL COMMENT '题解',
-                               `difficulty` tinyint unsigned NOT NULL DEFAULT '2' COMMENT '难度等级 1:简单 2:中等 3:困难',
-                               `creator_user_id` bigint NOT NULL COMMENT '创建人ID',
+                               `question_tips` varchar(255) DEFAULT NULL COMMENT '题目提示',
+                               `difficulty` int unsigned NOT NULL DEFAULT '2' COMMENT '难度等级 1:简单 2:中等 3:困难',
                                `view_count` int unsigned NOT NULL DEFAULT '0' COMMENT '浏览次数',
-                               `question_status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '状态 1:正常 0:禁用',
+                               `question_status` int unsigned NOT NULL DEFAULT '1' COMMENT '状态 1:正常 0:禁用',
                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
                                `creator` varchar(255) NULL DEFAULT NULL COMMENT '创建者',
-                               PRIMARY KEY (`id`),
-                               KEY `idx_creator_user_id` (`creator`),
-                               KEY `idx_difficulty_level` (`difficulty`)
+                               `is_deleted`  int(11)  DEFAULT '0' COMMENT '是否删除 0: 未删除 1: 已删除',
+                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='题目表';
+
+-- 题目答案表
+CREATE TABLE `qa_answer` (
+                                      `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                                      `question_id` bigint NOT NULL COMMENT '题目ID',
+                                      `question_answer` text NOT NULL COMMENT '答案内容',
+                                      `extended_filed` 	varchar(200) NOT NULL COMMENT '额外内容',
+                                      `answer_status` int unsigned NOT NULL DEFAULT '1' COMMENT '状态 1:正常 0:禁用',
+                                      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                      `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                                      `creator` varchar(255) NULL DEFAULT NULL COMMENT '创建者',
+                                      PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='题目答案表';
 
 
 CREATE TABLE `sys_user` (
@@ -56,7 +78,7 @@ CREATE TABLE `sys_user` (
                             `mobile` varchar(255) NULL DEFAULT NULL COMMENT '手机号',
                             `sex` int NULL DEFAULT NULL COMMENT '性别：1-男性，2-女性',
                             `avatar` text NULL COMMENT '头像（Base64）',
-                            `enabled` bit(1) NOT NULL DEFAULT '1' COMMENT '是否启用：1-启用，0-禁用',
+                            `enabled` int NOT NULL DEFAULT '1' COMMENT '是否启用：1-启用，0-禁用',
                             `login_ip` varchar(255) NULL DEFAULT NULL COMMENT '最近登录IP',
                             `login_date` datetime(6) NULL DEFAULT NULL COMMENT '最近登录时间',
                             `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',

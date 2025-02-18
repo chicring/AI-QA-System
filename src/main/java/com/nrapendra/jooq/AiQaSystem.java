@@ -4,8 +4,10 @@
 package com.nrapendra.jooq;
 
 
+import com.nrapendra.jooq.tables.AnswerTb;
+import com.nrapendra.jooq.tables.CategoryTb;
+import com.nrapendra.jooq.tables.MappingTb;
 import com.nrapendra.jooq.tables.PermissionTb;
-import com.nrapendra.jooq.tables.QuestionTagTb;
 import com.nrapendra.jooq.tables.QuestionTb;
 import com.nrapendra.jooq.tables.RolePermissionTb;
 import com.nrapendra.jooq.tables.RoleTb;
@@ -35,14 +37,24 @@ public class AiQaSystem extends SchemaImpl {
     public static final AiQaSystem AI_QA_SYSTEM = new AiQaSystem();
 
     /**
-     * 题目表
+     * 题目答案表
      */
-    public final QuestionTb QA_QUESTION = QuestionTb.QA_QUESTION;
+    public final AnswerTb QA_ANSWER = AnswerTb.QA_ANSWER;
+
+    /**
+     * 题目分类表
+     */
+    public final CategoryTb QA_CATEGORY = CategoryTb.QA_CATEGORY;
 
     /**
      * 题目标签关联表
      */
-    public final QuestionTagTb QA_QUESTION_TAG = QuestionTagTb.QA_QUESTION_TAG;
+    public final MappingTb QA_MAPPING = MappingTb.QA_MAPPING;
+
+    /**
+     * 题目表
+     */
+    public final QuestionTb QA_QUESTION = QuestionTb.QA_QUESTION;
 
     /**
      * 标签表
@@ -90,8 +102,10 @@ public class AiQaSystem extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            AnswerTb.QA_ANSWER,
+            CategoryTb.QA_CATEGORY,
+            MappingTb.QA_MAPPING,
             QuestionTb.QA_QUESTION,
-            QuestionTagTb.QA_QUESTION_TAG,
             TagTb.QA_TAG,
             PermissionTb.SYS_PERMISSION,
             RoleTb.SYS_ROLE,

@@ -94,7 +94,7 @@ public class UserTb extends TableImpl<UserRecord> {
     /**
      * The column <code>ai_qa_system.sys_user.enabled</code>. 是否启用：1-启用，0-禁用
      */
-    public final TableField<UserRecord, Boolean> ENABLED = createField(DSL.name("enabled"), SQLDataType.BIT.nullable(false), this, "是否启用：1-启用，0-禁用");
+    public final TableField<UserRecord, Integer> ENABLED = createField(DSL.name("enabled"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGER)), this, "是否启用：1-启用，0-禁用");
 
     /**
      * The column <code>ai_qa_system.sys_user.login_ip</code>. 最近登录IP
