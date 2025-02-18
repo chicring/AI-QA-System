@@ -7,6 +7,8 @@ import org.chenjh.aiqasystem.domain.dto.TagDTO;
 import org.chenjh.aiqasystem.domain.vo.question.AddTagVO;
 import org.chenjh.aiqasystem.domain.vo.question.TagQueryVO;
 import org.chenjh.aiqasystem.domain.vo.question.UpdateTagVO;
+import org.chenjh.aiqasystem.exception.custom.BadRequestException;
+import org.chenjh.aiqasystem.exception.custom.ResourceNotFoundException;
 import org.chenjh.aiqasystem.exception.custom.ServerException;
 import org.chenjh.aiqasystem.repo.question.TagQuestionRepository;
 import org.chenjh.aiqasystem.repo.question.TagRepository;
@@ -45,18 +47,18 @@ public class TagServiceImpl implements TagService{
         Optional<TagRecord> tagRecord = tagRepository.findById(tagId);
 
         if(tagRecord.isEmpty()){
-            throw new ServerException("标签不存在");
+            throw new ResourceNotFoundException("标签不存在");
         }
 
         if(tagRecord.get().getParentTagId().intValue() == 1){
-            throw new ServerException("根标签不能删除");
+            throw new BadRequestException("一级标签不能删除");
         }
 
         boolean result = tagRepository.deleteById(tagId);
         boolean result2 = tagQuestionRepository.deleteByTagId(tagId);
 
         if(!result){
-            throw new RuntimeException("删除失败");
+            throw new ServerException("删除失败");
         }
     }
 

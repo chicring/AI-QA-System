@@ -11,17 +11,6 @@ import org.chenjh.aiqasystem.domain.ResultCode;
 @Setter
 @Getter
 public class ServerException extends BaseException{
-    private int code;
-
-    public ServerException(ResultCode resultCode) {
-        super(resultCode.getMsg());
-        this.code = resultCode.getCode();
-    }
-
-    public ServerException(ResultCode resultCode, String msg) {
-        super(msg);
-        this.code = resultCode.getCode();
-    }
 
     public ServerException(String message) {
         super(message);

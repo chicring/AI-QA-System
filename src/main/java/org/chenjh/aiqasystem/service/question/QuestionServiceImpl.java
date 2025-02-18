@@ -8,6 +8,8 @@ import org.chenjh.aiqasystem.domain.convert.TagConvert;
 import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
 import org.chenjh.aiqasystem.domain.vo.question.QuestionQueryVO;
 import org.chenjh.aiqasystem.domain.vo.question.QuestionSaveVO;
+import org.chenjh.aiqasystem.exception.custom.ResourceNotFoundException;
+import org.chenjh.aiqasystem.exception.custom.ServerException;
 import org.chenjh.aiqasystem.repo.question.QuestionRepository;
 import org.chenjh.aiqasystem.repo.question.TagQuestionRepository;
 import org.chenjh.aiqasystem.repo.question.TagRepository;
@@ -37,7 +39,7 @@ public class QuestionServiceImpl implements QuestionService{
         String[] tags = question.getTags().split(",");
         boolean result = tagQuestionRepository.batchSave(record.getQuestionId(), Arrays.stream(tags).map(Long::parseLong).toArray(Long[]::new));
         if (!result) {
-            throw new RuntimeException("Save question failed");
+            throw new ServerException("保存标签失败");
         }
         return getQuestionById(record.getQuestionId());
     }
@@ -51,7 +53,7 @@ public class QuestionServiceImpl implements QuestionService{
     public QuestionDTO getQuestionById(Long questionId) {
         Optional<QuestionRecord> questionRecord = questionRepository.findById(questionId);
         if (questionRecord.isEmpty()) {
-            throw new RuntimeException("Question not found");
+            throw new ResourceNotFoundException("问题不存在");
         }
         List<TagRecord> tagRecord = tagRepository.findByQuestionId(questionId);
 

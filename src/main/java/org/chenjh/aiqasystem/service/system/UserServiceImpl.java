@@ -10,6 +10,9 @@ import org.chenjh.aiqasystem.domain.dto.system.UserInfoDTO;
 import org.chenjh.aiqasystem.domain.dto.system.UserTokenDTO;
 import org.chenjh.aiqasystem.domain.vo.UserLoginVO;
 import org.chenjh.aiqasystem.domain.vo.UserRegisterVO;
+import org.chenjh.aiqasystem.exception.custom.BadRequestException;
+import org.chenjh.aiqasystem.exception.custom.ResourceConflictException;
+import org.chenjh.aiqasystem.exception.custom.ResourceNotFoundException;
 import org.chenjh.aiqasystem.exception.custom.ServerException;
 import org.chenjh.aiqasystem.repo.system.UserRepository;
 import org.chenjh.aiqasystem.repo.system.UserRoleRepository;
@@ -18,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.chenjh.aiqasystem.domain.ResultCode.*;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserInfoDTO register(UserRegisterVO vo) {
         if(userRepository.findByUsername(vo.getUsername()).isPresent()){
-            throw new ServerException(USER_EXIST);
+            throw new ResourceConflictException("用户已存在");
         }
         UserRecord userRecord = new UserRecord();
         userRecord.setUsername(vo.getUsername());
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService{
         userRecord.setMobile(vo.getMobile());
         userRecord.setSex(vo.getSex());
         if(userRepository.save(userRecord) == 0){
-            throw  new ServerException(Register_FAIL);
+            throw  new ServerException("注册失败");
         }
 
         userRoleRepository.save(userRecord.getUsername(), SystemRoleEnum.USER.getId());
@@ -65,10 +67,10 @@ public class UserServiceImpl implements UserService{
     public UserTokenDTO login(UserLoginVO vo) {
         Optional<UserRecord> userRecord = userRepository.findByUsername(vo.getUsername());
         if(userRecord.isEmpty()){
-            throw new RuntimeException("用户不存在");
+            throw new ResourceNotFoundException("用户不存在");
         }
         if(!SaSecureUtil.sha256(vo.getPassword()).equals(userRecord.get().getPassword())){
-            throw new RuntimeException("密码错误");
+            throw new BadRequestException("密码错误");
         }
 
         StpUtil.login(vo.getUsername());
@@ -84,7 +86,7 @@ public class UserServiceImpl implements UserService{
     public UserInfoDTO getUserInfoByName(String userName) {
         Optional<UserRecord> userRecord = userRepository.findByUsername(userName);
         if(userRecord.isEmpty()){
-            throw new ServerException(USER_NOT_EXIST);
+            throw new ResourceNotFoundException("用户不存在");
         }
         return null;
     }

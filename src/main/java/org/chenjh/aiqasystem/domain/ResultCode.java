@@ -13,9 +13,6 @@ public enum ResultCode {
      */
     SUCCESS(200, "成功"),
     BAD_REQUEST(400, "参数或者语法不对"),
-    USER_EXIST(402, "用户已存在"),
-    USER_NOT_EXIST(404, "用户不存在"),
-    Register_FAIL(400, "注册失败"),
     UNAUTHORIZED(401, "认证失败"),
     FORBIDDEN(403, "禁止访问"),
     NOT_FOUND(404, "请求的资源不存在"),
