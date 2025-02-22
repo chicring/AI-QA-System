@@ -73,11 +73,6 @@ public class TagTb extends TableImpl<TagRecord> {
     public final TableField<TagRecord, UInteger> SORT_NUM = createField(DSL.name("sort_num"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGERUNSIGNED)), this, "排序号");
 
     /**
-     * The column <code>ai_qa_system.qa_tag.tag_status</code>. 状态 1:正常 0:禁用
-     */
-    public final TableField<TagRecord, UInteger> TAG_STATUS = createField(DSL.name("tag_status"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGERUNSIGNED)), this, "状态 1:正常 0:禁用");
-
-    /**
      * The column <code>ai_qa_system.qa_tag.create_time</code>. 创建时间
      */
     public final TableField<TagRecord, LocalDateTime> CREATE_TIME = createField(DSL.name("create_time"), SQLDataType.LOCALDATETIME(0).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "创建时间");

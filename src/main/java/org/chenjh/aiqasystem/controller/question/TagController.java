@@ -3,45 +3,47 @@ package org.chenjh.aiqasystem.controller.question;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.chenjh.aiqasystem.config.OperationLog;
-import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.Result;
-import org.chenjh.aiqasystem.domain.dto.TagDTO;
-import org.chenjh.aiqasystem.domain.vo.question.AddTagVO;
-import org.chenjh.aiqasystem.domain.vo.question.TagQueryVO;
+import org.chenjh.aiqasystem.domain.dto.question.TagGroupDTO;
+import org.chenjh.aiqasystem.domain.vo.question.SaveTagVO;
+
 import org.chenjh.aiqasystem.domain.vo.question.UpdateTagVO;
 import org.chenjh.aiqasystem.service.question.TagService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/tag")
+@RequestMapping("/v1/tag")
 public class TagController {
 
     @Resource
     private TagService tagService;
 
-    @RequestMapping("/add")
+    @PostMapping()
     @OperationLog("添加标签")
-    public Result<TagDTO> addTag(@Valid AddTagVO vo) {
-        return Result.ok(tagService.addTag(vo));
+    public Result<?> addTag(@Valid SaveTagVO vo) {
+        tagService.saveTag(vo);
+        return Result.ok();
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/{id}")
     @OperationLog("删除标签")
-    public Result<?> deleteTag(Long id) {
+    public Result<?> deleteTag(@PathVariable Long id) {
         tagService.deleteTag(id);
         return Result.ok();
     }
 
-    @PostMapping("/update")
+    @PutMapping()
     @OperationLog("更新标签")
     public Result<?> updateTag(@Valid @RequestBody UpdateTagVO vo) {
         tagService.updateTag(vo);
         return Result.ok();
     }
 
-    @GetMapping("/list")
-    @OperationLog("标签列表")
-    public Result<PageResult<TagDTO>> getList(@Valid TagQueryVO vo) {
-        return Result.ok(tagService.getTagList(vo));
+    @GetMapping("/list-group")
+    @OperationLog("标签分组列表")
+    public Result<List<TagGroupDTO>> getListGroup() {
+        return Result.ok(tagService.getTagGroup());
     }
 }

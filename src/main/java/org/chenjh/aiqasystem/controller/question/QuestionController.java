@@ -2,32 +2,29 @@ package org.chenjh.aiqasystem.controller.question;
 
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
-import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.Result;
-import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
-import org.chenjh.aiqasystem.domain.vo.question.QuestionQueryVO;
-import org.chenjh.aiqasystem.domain.vo.question.QuestionSaveVO;
+import org.chenjh.aiqasystem.domain.dto.question.QuestionDTO;
+import org.chenjh.aiqasystem.domain.vo.question.SaveQuestionVO;
 import org.chenjh.aiqasystem.service.question.QuestionService;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/v1/question")
 public class QuestionController {
     @Resource
     private QuestionService questionService;
 
     /**
      * 保存问题
-     * @param questionSaveVO 问题
+     * @param  vo 问题
      * @return 保存后的问题
      */
-    @PostMapping("/save")
-    public Result<QuestionDTO> saveQuestion(@Valid @RequestBody QuestionSaveVO questionSaveVO){
-        return Result.ok(questionService.saveQuestion(questionSaveVO));
+    @PostMapping()
+    public Result<?> saveQuestion(@Valid @RequestBody SaveQuestionVO vo){
+        questionService.saveQuestion(vo);
+        return Result.ok();
     }
-
-    //// TODO: 文件批量导入问题
 
     /**
      * 根据问题id获取问题
@@ -45,25 +42,9 @@ public class QuestionController {
      * @param questionId 问题id
      * @return 删除结果
      */
+    @DeleteMapping("/{questionId}")
     public Result<?> deleteQuestion(@PathVariable Long questionId){
         questionService.deleteQuestion(questionId);
         return Result.ok();
     }
-
-    /**
-     * 根据标签id获取问题列表
-     * @param tagId 标签id
-     * @return 问题列表
-     */
-    @GetMapping("/tag/{tagId}")
-    public Result<PageResult<QuestionDTO>> getQuestionByTag(
-            @PathVariable Long tagId,
-            @Valid QuestionQueryVO questionQueryVO) {
-
-//        questionQueryVO.getTagIds().add(tagId);
-        return Result.ok(questionService.getQuestionList(questionQueryVO));
-    }
-
-
-
 }

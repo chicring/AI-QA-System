@@ -69,12 +69,6 @@ public class CategoryTb extends TableImpl<CategoryRecord> {
     public final TableField<CategoryRecord, UInteger> CATEGORY_LEVEL = createField(DSL.name("category_level"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGERUNSIGNED)), this, "标签层级 1:一级标签 2:二级标签");
 
     /**
-     * The column <code>ai_qa_system.qa_category.category_status</code>. 状态 1:正常
-     * 0:禁用
-     */
-    public final TableField<CategoryRecord, UInteger> CATEGORY_STATUS = createField(DSL.name("category_status"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGERUNSIGNED)), this, "状态 1:正常 0:禁用");
-
-    /**
      * The column <code>ai_qa_system.qa_category.image_url</code>. 图标连接
      */
     public final TableField<CategoryRecord, String> IMAGE_URL = createField(DSL.name("image_url"), SQLDataType.VARCHAR(256), this, "图标连接");

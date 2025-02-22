@@ -81,11 +81,6 @@ public class MappingTb extends TableImpl<MappingRecord> {
      */
     public final TableField<MappingRecord, LocalDateTime> UPDATE_TIME = createField(DSL.name("update_time"), SQLDataType.LOCALDATETIME(0).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "修改时间");
 
-    /**
-     * The column <code>ai_qa_system.qa_mapping.creator</code>. 创建者
-     */
-    public final TableField<MappingRecord, String> CREATOR = createField(DSL.name("creator"), SQLDataType.VARCHAR(255), this, "创建者");
-
     private MappingTb(Name alias, Table<MappingRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }

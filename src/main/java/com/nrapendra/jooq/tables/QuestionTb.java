@@ -28,6 +28,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
+import org.jooq.types.UByte;
 import org.jooq.types.UInteger;
 
 
@@ -87,7 +88,7 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
      * The column <code>ai_qa_system.qa_question.question_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public final TableField<QuestionRecord, UInteger> QUESTION_STATUS = createField(DSL.name("question_status"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGERUNSIGNED)), this, "状态 1:正常 0:禁用");
+    public final TableField<QuestionRecord, UByte> QUESTION_STATUS = createField(DSL.name("question_status"), SQLDataType.TINYINTUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.TINYINTUNSIGNED)), this, "状态 1:正常 0:禁用");
 
     /**
      * The column <code>ai_qa_system.qa_question.create_time</code>. 创建时间
@@ -108,7 +109,7 @@ public class QuestionTb extends TableImpl<QuestionRecord> {
      * The column <code>ai_qa_system.qa_question.is_deleted</code>. 是否删除 0: 未删除
      * 1: 已删除
      */
-    public final TableField<QuestionRecord, Integer> IS_DELETED = createField(DSL.name("is_deleted"), SQLDataType.INTEGER.defaultValue(DSL.inline("0", SQLDataType.INTEGER)), this, "是否删除 0: 未删除 1: 已删除");
+    public final TableField<QuestionRecord, Boolean> IS_DELETED = createField(DSL.name("is_deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.inline("0", SQLDataType.BOOLEAN)), this, "是否删除 0: 未删除 1: 已删除");
 
     private QuestionTb(Name alias, Table<QuestionRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);

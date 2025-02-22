@@ -1,6 +1,7 @@
 package org.chenjh.aiqasystem.repo;
 
-import org.chenjh.aiqasystem.domain.dto.QuestionDTO;
+
+import org.chenjh.aiqasystem.domain.dto.question.QuestionDTO;
 import org.jooq.Record;
 import org.jooq.RecordMapper;
 

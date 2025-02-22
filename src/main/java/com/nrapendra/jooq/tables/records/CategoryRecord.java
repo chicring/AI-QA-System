@@ -66,47 +66,31 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> {
     }
 
     /**
-     * Setter for <code>ai_qa_system.qa_category.category_status</code>. 状态 1:正常
-     * 0:禁用
-     */
-    public void setCategoryStatus(UInteger value) {
-        set(3, value);
-    }
-
-    /**
-     * Getter for <code>ai_qa_system.qa_category.category_status</code>. 状态 1:正常
-     * 0:禁用
-     */
-    public UInteger getCategoryStatus() {
-        return (UInteger) get(3);
-    }
-
-    /**
      * Setter for <code>ai_qa_system.qa_category.image_url</code>. 图标连接
      */
     public void setImageUrl(String value) {
-        set(4, value);
+        set(3, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_category.image_url</code>. 图标连接
      */
     public String getImageUrl() {
-        return (String) get(4);
+        return (String) get(3);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_category.description</code>. 描述
      */
     public void setDescription(String value) {
-        set(5, value);
+        set(4, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_category.description</code>. 描述
      */
     public String getDescription() {
-        return (String) get(5);
+        return (String) get(4);
     }
 
     /**
@@ -114,7 +98,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> {
      * 父分类ID
      */
     public void setParentCategoryId(Long value) {
-        set(6, value);
+        set(5, value);
     }
 
     /**
@@ -122,63 +106,63 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> {
      * 父分类ID
      */
     public Long getParentCategoryId() {
-        return (Long) get(6);
+        return (Long) get(5);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_category.sort_num</code>. 排序号
      */
     public void setSortNum(UInteger value) {
-        set(7, value);
+        set(6, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_category.sort_num</code>. 排序号
      */
     public UInteger getSortNum() {
-        return (UInteger) get(7);
+        return (UInteger) get(6);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_category.create_time</code>. 创建时间
      */
     public void setCreateTime(LocalDateTime value) {
-        set(8, value);
+        set(7, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_category.create_time</code>. 创建时间
      */
     public LocalDateTime getCreateTime() {
-        return (LocalDateTime) get(8);
+        return (LocalDateTime) get(7);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_category.update_time</code>. 修改时间
      */
     public void setUpdateTime(LocalDateTime value) {
-        set(9, value);
+        set(8, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_category.update_time</code>. 修改时间
      */
     public LocalDateTime getUpdateTime() {
-        return (LocalDateTime) get(9);
+        return (LocalDateTime) get(8);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_category.creator</code>. 创建者
      */
     public void setCreator(String value) {
-        set(10, value);
+        set(9, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_category.creator</code>. 创建者
      */
     public String getCreator() {
-        return (String) get(10);
+        return (String) get(9);
     }
 
     // -------------------------------------------------------------------------
@@ -204,13 +188,12 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> {
     /**
      * Create a detached, initialised CategoryRecord
      */
-    public CategoryRecord(Long id, String categoryName, UInteger categoryLevel, UInteger categoryStatus, String imageUrl, String description, Long parentCategoryId, UInteger sortNum, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public CategoryRecord(Long id, String categoryName, UInteger categoryLevel, String imageUrl, String description, Long parentCategoryId, UInteger sortNum, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
         super(CategoryTb.QA_CATEGORY);
 
         setId(id);
         setCategoryName(categoryName);
         setCategoryLevel(categoryLevel);
-        setCategoryStatus(categoryStatus);
         setImageUrl(imageUrl);
         setDescription(description);
         setParentCategoryId(parentCategoryId);

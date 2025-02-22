@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 import org.jooq.Record1;
 import org.jooq.impl.UpdatableRecordImpl;
+import org.jooq.types.UByte;
 import org.jooq.types.UInteger;
 
 
@@ -111,7 +112,7 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
      * Setter for <code>ai_qa_system.qa_question.question_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public void setQuestionStatus(UInteger value) {
+    public void setQuestionStatus(UByte value) {
         set(6, value);
     }
 
@@ -119,8 +120,8 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
      * Getter for <code>ai_qa_system.qa_question.question_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public UInteger getQuestionStatus() {
-        return (UInteger) get(6);
+    public UByte getQuestionStatus() {
+        return (UByte) get(6);
     }
 
     /**
@@ -169,7 +170,7 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
      * Setter for <code>ai_qa_system.qa_question.is_deleted</code>. 是否删除 0: 未删除
      * 1: 已删除
      */
-    public void setIsDeleted(Integer value) {
+    public void setIsDeleted(Boolean value) {
         set(10, value);
     }
 
@@ -177,8 +178,8 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
      * Getter for <code>ai_qa_system.qa_question.is_deleted</code>. 是否删除 0: 未删除
      * 1: 已删除
      */
-    public Integer getIsDeleted() {
-        return (Integer) get(10);
+    public Boolean getIsDeleted() {
+        return (Boolean) get(10);
     }
 
     // -------------------------------------------------------------------------
@@ -204,7 +205,7 @@ public class QuestionRecord extends UpdatableRecordImpl<QuestionRecord> {
     /**
      * Create a detached, initialised QuestionRecord
      */
-    public QuestionRecord(Long id, Long questionId, String questionTitle, String questionTips, UInteger difficulty, UInteger viewCount, UInteger questionStatus, LocalDateTime createTime, LocalDateTime updateTime, String creator, Integer isDeleted) {
+    public QuestionRecord(Long id, Long questionId, String questionTitle, String questionTips, UInteger difficulty, UInteger viewCount, UByte questionStatus, LocalDateTime createTime, LocalDateTime updateTime, String creator, Boolean isDeleted) {
         super(QuestionTb.QA_QUESTION);
 
         setId(id);

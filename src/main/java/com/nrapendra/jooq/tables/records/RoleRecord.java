@@ -65,15 +65,15 @@ public class RoleRecord extends UpdatableRecordImpl<RoleRecord> {
     /**
      * Setter for <code>ai_qa_system.sys_role.type</code>. 角色类型：1-内置，2-自定义
      */
-    public void setType(Integer value) {
+    public void setType(Byte value) {
         set(3, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.sys_role.type</code>. 角色类型：1-内置，2-自定义
      */
-    public Integer getType() {
-        return (Integer) get(3);
+    public Byte getType() {
+        return (Byte) get(3);
     }
 
     /**
@@ -155,7 +155,7 @@ public class RoleRecord extends UpdatableRecordImpl<RoleRecord> {
     /**
      * Create a detached, initialised RoleRecord
      */
-    public RoleRecord(Long id, String name, Integer level, Integer type, String remark, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public RoleRecord(Long id, String name, Integer level, Byte type, String remark, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
         super(RoleTb.SYS_ROLE);
 
         setId(id);

@@ -104,20 +104,6 @@ public class MappingRecord extends UpdatableRecordImpl<MappingRecord> {
         return (LocalDateTime) get(5);
     }
 
-    /**
-     * Setter for <code>ai_qa_system.qa_mapping.creator</code>. 创建者
-     */
-    public void setCreator(String value) {
-        set(6, value);
-    }
-
-    /**
-     * Getter for <code>ai_qa_system.qa_mapping.creator</code>. 创建者
-     */
-    public String getCreator() {
-        return (String) get(6);
-    }
-
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -141,7 +127,7 @@ public class MappingRecord extends UpdatableRecordImpl<MappingRecord> {
     /**
      * Create a detached, initialised MappingRecord
      */
-    public MappingRecord(Long id, Long questionId, Long categoryId, Long tagId, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public MappingRecord(Long id, Long questionId, Long categoryId, Long tagId, LocalDateTime createTime, LocalDateTime updateTime) {
         super(MappingTb.QA_MAPPING);
 
         setId(id);
@@ -150,7 +136,6 @@ public class MappingRecord extends UpdatableRecordImpl<MappingRecord> {
         setTagId(tagId);
         setCreateTime(createTime);
         setUpdateTime(updateTime);
-        setCreator(creator);
         resetChangedOnNotNull();
     }
 }

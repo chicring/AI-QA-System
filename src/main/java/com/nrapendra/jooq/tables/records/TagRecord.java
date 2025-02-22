@@ -78,59 +78,45 @@ public class TagRecord extends UpdatableRecordImpl<TagRecord> {
     }
 
     /**
-     * Setter for <code>ai_qa_system.qa_tag.tag_status</code>. 状态 1:正常 0:禁用
-     */
-    public void setTagStatus(UInteger value) {
-        set(4, value);
-    }
-
-    /**
-     * Getter for <code>ai_qa_system.qa_tag.tag_status</code>. 状态 1:正常 0:禁用
-     */
-    public UInteger getTagStatus() {
-        return (UInteger) get(4);
-    }
-
-    /**
      * Setter for <code>ai_qa_system.qa_tag.create_time</code>. 创建时间
      */
     public void setCreateTime(LocalDateTime value) {
-        set(5, value);
+        set(4, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_tag.create_time</code>. 创建时间
      */
     public LocalDateTime getCreateTime() {
-        return (LocalDateTime) get(5);
+        return (LocalDateTime) get(4);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_tag.update_time</code>. 修改时间
      */
     public void setUpdateTime(LocalDateTime value) {
-        set(6, value);
+        set(5, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_tag.update_time</code>. 修改时间
      */
     public LocalDateTime getUpdateTime() {
-        return (LocalDateTime) get(6);
+        return (LocalDateTime) get(5);
     }
 
     /**
      * Setter for <code>ai_qa_system.qa_tag.creator</code>. 创建者
      */
     public void setCreator(String value) {
-        set(7, value);
+        set(6, value);
     }
 
     /**
      * Getter for <code>ai_qa_system.qa_tag.creator</code>. 创建者
      */
     public String getCreator() {
-        return (String) get(7);
+        return (String) get(6);
     }
 
     // -------------------------------------------------------------------------
@@ -156,14 +142,13 @@ public class TagRecord extends UpdatableRecordImpl<TagRecord> {
     /**
      * Create a detached, initialised TagRecord
      */
-    public TagRecord(Long id, String tagName, Long categoryId, UInteger sortNum, UInteger tagStatus, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public TagRecord(Long id, String tagName, Long categoryId, UInteger sortNum, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
         super(TagTb.QA_TAG);
 
         setId(id);
         setTagName(tagName);
         setCategoryId(categoryId);
         setSortNum(sortNum);
-        setTagStatus(tagStatus);
         setCreateTime(createTime);
         setUpdateTime(updateTime);
         setCreator(creator);

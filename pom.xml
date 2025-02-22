@@ -141,6 +141,14 @@
                         <name>org.jooq.codegen.JavaGenerator</name>
 
                         <database>
+                            <forcedTypes>
+                                <forcedType>
+                                    <name>BOOLEAN</name>
+                                    <includeTypes>TINYINT\(1\)</includeTypes>
+                                    <nullability>ALL</nullability>
+                                    <objectType>ALL</objectType>
+                                </forcedType>
+                            </forcedTypes>
                             <!-- 数据库的基本信息 -->
                             <name>org.jooq.meta.mysql.MySQLDatabase</name>
                             <inputSchema>ai_qa_system</inputSchema>
@@ -186,6 +194,7 @@
                     </generator>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

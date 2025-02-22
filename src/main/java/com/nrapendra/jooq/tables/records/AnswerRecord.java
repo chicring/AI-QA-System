@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 import org.jooq.Record1;
 import org.jooq.impl.UpdatableRecordImpl;
-import org.jooq.types.UInteger;
+import org.jooq.types.UByte;
 
 
 /**
@@ -81,7 +81,7 @@ public class AnswerRecord extends UpdatableRecordImpl<AnswerRecord> {
      * Setter for <code>ai_qa_system.qa_answer.answer_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public void setAnswerStatus(UInteger value) {
+    public void setAnswerStatus(UByte value) {
         set(4, value);
     }
 
@@ -89,8 +89,8 @@ public class AnswerRecord extends UpdatableRecordImpl<AnswerRecord> {
      * Getter for <code>ai_qa_system.qa_answer.answer_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public UInteger getAnswerStatus() {
-        return (UInteger) get(4);
+    public UByte getAnswerStatus() {
+        return (UByte) get(4);
     }
 
     /**
@@ -158,7 +158,7 @@ public class AnswerRecord extends UpdatableRecordImpl<AnswerRecord> {
     /**
      * Create a detached, initialised AnswerRecord
      */
-    public AnswerRecord(Long id, Long questionId, String questionAnswer, String extendedFiled, UInteger answerStatus, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
+    public AnswerRecord(Long id, Long questionId, String questionAnswer, String extendedFiled, UByte answerStatus, LocalDateTime createTime, LocalDateTime updateTime, String creator) {
         super(AnswerTb.QA_ANSWER);
 
         setId(id);

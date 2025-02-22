@@ -74,7 +74,7 @@ public class RoleTb extends TableImpl<RoleRecord> {
     /**
      * The column <code>ai_qa_system.sys_role.type</code>. 角色类型：1-内置，2-自定义
      */
-    public final TableField<RoleRecord, Integer> TYPE = createField(DSL.name("type"), SQLDataType.INTEGER, this, "角色类型：1-内置，2-自定义");
+    public final TableField<RoleRecord, Byte> TYPE = createField(DSL.name("type"), SQLDataType.TINYINT, this, "角色类型：1-内置，2-自定义");
 
     /**
      * The column <code>ai_qa_system.sys_role.remark</code>. 备注

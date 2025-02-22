@@ -28,7 +28,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
+import org.jooq.types.UByte;
 
 
 /**
@@ -76,7 +76,7 @@ public class AnswerTb extends TableImpl<AnswerRecord> {
      * The column <code>ai_qa_system.qa_answer.answer_status</code>. 状态 1:正常
      * 0:禁用
      */
-    public final TableField<AnswerRecord, UInteger> ANSWER_STATUS = createField(DSL.name("answer_status"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGERUNSIGNED)), this, "状态 1:正常 0:禁用");
+    public final TableField<AnswerRecord, UByte> ANSWER_STATUS = createField(DSL.name("answer_status"), SQLDataType.TINYINTUNSIGNED.nullable(false).defaultValue(DSL.inline("1", SQLDataType.TINYINTUNSIGNED)), this, "状态 1:正常 0:禁用");
 
     /**
      * The column <code>ai_qa_system.qa_answer.create_time</code>. 创建时间
