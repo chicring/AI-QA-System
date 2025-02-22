@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.chenjh.aiqasystem.domain.entity.BaseDO;
 
-import java.time.LocalDateTime;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Permission extends BaseDO {

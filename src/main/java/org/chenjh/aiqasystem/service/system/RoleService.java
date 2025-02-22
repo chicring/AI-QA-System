@@ -3,7 +3,7 @@ package org.chenjh.aiqasystem.service.system;
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.system.PermissionDTO;
 import org.chenjh.aiqasystem.domain.dto.system.RoleDTO;
-import org.chenjh.aiqasystem.domain.vo.RoleVO;
+import org.chenjh.aiqasystem.domain.vo.system.RoleVO;
 
 import java.util.List;
 

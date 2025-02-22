@@ -15,5 +15,4 @@ public class CategoryDTO {
     private Integer parentCategoryId;
     private Integer sortNum;
     private String imageUrl;
-    private Long questionCount;
 }

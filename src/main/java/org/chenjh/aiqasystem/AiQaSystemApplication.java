@@ -9,7 +9,6 @@ public class AiQaSystemApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AiQaSystemApplication.class, args);
-
     }
 
 }

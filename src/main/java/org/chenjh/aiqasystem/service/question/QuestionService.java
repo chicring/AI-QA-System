@@ -2,8 +2,7 @@ package org.chenjh.aiqasystem.service.question;
 
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.question.QuestionDTO;
-import org.chenjh.aiqasystem.domain.vo.question.QuestionQueryVO;
-import org.chenjh.aiqasystem.domain.vo.question.QuestionSaveVO;
+import org.chenjh.aiqasystem.domain.vo.question.QueryQuestionVO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveQuestionVO;
 
 /**
@@ -37,5 +36,5 @@ public interface QuestionService{
      * @param question 问题查询条件
      * @return QuestionDTO
      */
-    PageResult<QuestionDTO> getQuestionList(QuestionQueryVO question);
+    PageResult<QuestionDTO> getQuestionList(QueryQuestionVO question);
 }

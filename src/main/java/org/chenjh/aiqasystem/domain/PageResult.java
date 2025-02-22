@@ -16,8 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PageResult<T> {
-    private int page;
-    private int rows;
+    private int pageNum;
+    private int pageSize;
     private Long total;
     private List<T> data;
 }

@@ -1,7 +1,5 @@
 package org.chenjh.aiqasystem.config;
 
-import cn.dev33.satoken.stp.StpUtil;
-
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

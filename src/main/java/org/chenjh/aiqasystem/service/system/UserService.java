@@ -2,17 +2,12 @@ package org.chenjh.aiqasystem.service.system;
 
 import org.chenjh.aiqasystem.domain.dto.system.UserInfoDTO;
 import org.chenjh.aiqasystem.domain.dto.system.UserTokenDTO;
-import org.chenjh.aiqasystem.domain.vo.UserLoginVO;
-import org.chenjh.aiqasystem.domain.vo.UserRegisterVO;
+import org.chenjh.aiqasystem.domain.vo.system.UserLoginVO;
+import org.chenjh.aiqasystem.domain.vo.system.UserRegisterVO;
 
 public interface UserService {
 
-    /**
-     * 用户注册
-     * @param vo 用户注册信息
-     * @return 用户信息
-     */
-    UserInfoDTO register(UserRegisterVO vo);
+
 
     /**
      * 用户登录

@@ -4,6 +4,7 @@ import org.chenjh.aiqasystem.domain.dto.question.CategoryDTO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveCategoryVO;
 import org.chenjh.aiqasystem.domain.vo.question.UpdateCategoryVO;
 import org.jooq.DSLContext;
+import org.jooq.Record1;
 import org.jooq.types.UInteger;
 import org.springframework.stereotype.Repository;
 
@@ -60,12 +61,7 @@ public class CategoryRepository {
                         QA_CATEGORY.IMAGE_URL,
                         QA_CATEGORY.DESCRIPTION,
                         QA_CATEGORY.PARENT_CATEGORY_ID,
-                        QA_CATEGORY.SORT_NUM,
-                        multiset(
-                                dsl.selectCount()
-                                        .from(QA_MAPPING)
-                                        .where(QA_MAPPING.CATEGORY_ID.eq(QA_CATEGORY.ID))
-                        ).as("questionCount")
+                        QA_CATEGORY.SORT_NUM
                 )
                 .from(QA_CATEGORY)
                 .orderBy(QA_CATEGORY.SORT_NUM.asc())

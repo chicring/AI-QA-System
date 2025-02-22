@@ -1,4 +1,4 @@
-package org.chenjh.aiqasystem.domain.vo;
+package org.chenjh.aiqasystem.domain.vo.system;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

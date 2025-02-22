@@ -1,10 +1,13 @@
 package org.chenjh.aiqasystem.service.question;
 
 import jakarta.annotation.Resource;
+import org.chenjh.aiqasystem.domain.dto.question.CategoryDTO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveCategoryVO;
 import org.chenjh.aiqasystem.domain.vo.question.UpdateCategoryVO;
 import org.chenjh.aiqasystem.repo.question.CategoryRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author hjong
@@ -15,6 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Resource
     private CategoryRepository categoryRepository;
+
+    @Override
+    public List<CategoryDTO> getCategoryList() {
+        return categoryRepository.findAll();
+    }
 
     @Override
     public void saveCategory(SaveCategoryVO vo) {

@@ -2,8 +2,10 @@ package org.chenjh.aiqasystem.controller.question;
 
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.Result;
 import org.chenjh.aiqasystem.domain.dto.question.QuestionDTO;
+import org.chenjh.aiqasystem.domain.vo.question.QueryQuestionVO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveQuestionVO;
 import org.chenjh.aiqasystem.service.question.QuestionService;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +48,15 @@ public class QuestionController {
     public Result<?> deleteQuestion(@PathVariable Long questionId){
         questionService.deleteQuestion(questionId);
         return Result.ok();
+    }
+
+    /**
+     * 获取问题分页列表
+     * @param vo 问题查询条件
+     * @return 问题列表
+     */
+    @GetMapping("/list-question")
+    public Result<PageResult<QuestionDTO>> getPageResult(QueryQuestionVO vo){
+        return Result.ok(questionService.getQuestionList(vo));
     }
 }

@@ -1,18 +1,20 @@
 package org.chenjh.aiqasystem.service.question;
 
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.question.QuestionDTO;
-import org.chenjh.aiqasystem.domain.vo.question.QuestionQueryVO;
+import org.chenjh.aiqasystem.domain.vo.question.QueryQuestionVO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveQuestionVO;
 import org.chenjh.aiqasystem.exception.custom.ResourceNotFoundException;
+import org.chenjh.aiqasystem.exception.custom.ServerException;
 import org.chenjh.aiqasystem.repo.question.AnswerRepository;
 import org.chenjh.aiqasystem.repo.question.QAMappingRepository;
 import org.chenjh.aiqasystem.repo.question.QuestionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Slf4j
 @Service
 public class QuestionServiceImpl implements QuestionService{
 
@@ -28,14 +30,19 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     @Transactional
     public void saveQuestion(SaveQuestionVO question) {
-        Long questionId = questionRepository.save(question);
-        answerRepository.save(questionId, question.getAnswers());
-        qaMappingRepository.save(questionId, question.getCategoryId(),question.getTagIds());
+        try {
+            Long questionId = questionRepository.save(question);
+            answerRepository.save(questionId, question.getAnswers());
+            qaMappingRepository.save(questionId, question.getCategoryId(), question.getTagIds());
+        } catch (Exception e) {
+            log.error("保存问题失败", e);
+            throw new ServerException("保存问题失败");
+        }
     }
 
     @Override
     public void deleteQuestion(Long id) {
-
+        questionRepository.deleteById(id);
     }
 
     @Override
@@ -46,7 +53,7 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public PageResult<QuestionDTO> getQuestionList(QuestionQueryVO question) {
-        return null;
+    public PageResult<QuestionDTO> getQuestionList(QueryQuestionVO question) {
+        return questionRepository.findPageResult(question);
     }
 }

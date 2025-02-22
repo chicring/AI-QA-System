@@ -9,10 +9,13 @@ import java.util.List;
  * @date 2025−02−14
  */
 @Data
-public class QuestionQueryVO {
+public class QueryQuestionVO {
+
     private Integer pageNum;
     private Integer pageSize;
+
+    private Long categoryId;
     private String title;
     private Integer difficulty;
-    private List<Long> tagIds;
+    private List<String> tagNames;
 }
