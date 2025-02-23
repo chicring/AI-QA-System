@@ -8,10 +8,13 @@ import org.chenjh.aiqasystem.common.SystemRoleEnum;
 import org.chenjh.aiqasystem.domain.dto.system.RoleDTO;
 import org.chenjh.aiqasystem.domain.dto.system.UserInfoDTO;
 import org.chenjh.aiqasystem.domain.dto.system.UserTokenDTO;
+import org.chenjh.aiqasystem.domain.vo.system.ChangePasswordVO;
+import org.chenjh.aiqasystem.domain.vo.system.UpdateUserVO;
 import org.chenjh.aiqasystem.domain.vo.system.UserLoginVO;
 import org.chenjh.aiqasystem.domain.vo.system.UserRegisterVO;
 import org.chenjh.aiqasystem.exception.custom.BadRequestException;
 import org.chenjh.aiqasystem.exception.custom.ResourceNotFoundException;
+import org.chenjh.aiqasystem.exception.custom.ServerException;
 import org.chenjh.aiqasystem.repo.system.UserRepository;
 import org.chenjh.aiqasystem.repo.system.UserRoleRepository;
 import org.springframework.stereotype.Service;
@@ -34,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public UserTokenDTO login(UserLoginVO vo) {
-        UserRecord userRecord = userRepository.findByUsername(vo.getUsername())
+        UserRecord userRecord = userRepository.findUser(vo.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("用户不存在"));
 
         if(!SaSecureUtil.sha256(vo.getPassword()).equals(userRecord.getPassword())){
@@ -74,18 +77,28 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String changePassword(String account, String oldPassword, String newPassword) {
-        return "";
+    public String changePassword(String account, ChangePasswordVO vo) {
+        if(vo.getOldPassword().equals(vo.getNewPassword())){
+            throw new BadRequestException("新旧密码不能相同");
+        }
+        if(userRepository.changePassword(account, vo)){
+            return "修改成功";
+        }
+        throw new ServerException("修改失败");
     }
 
 
     @Override
     public UserInfoDTO getUserInfo(String account) {
-        return null;
+        return userRepository.findByUsername(account)
+                .orElseThrow(() -> new ResourceNotFoundException("用户不存在"));
     }
 
     @Override
-    public String updateUserInfo(String account, String name, String email, String phone) {
-        return "";
+    public String updateUserInfo(String account, UpdateUserVO vo) {
+        if(userRepository.updateUserInfo(account, vo)){
+            return "更新成功";
+        }
+        throw new ServerException("更新失败");
     }
 }

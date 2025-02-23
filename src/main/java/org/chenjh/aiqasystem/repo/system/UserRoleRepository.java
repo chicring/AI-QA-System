@@ -31,6 +31,17 @@ public class UserRoleRepository {
      * 根据用户账号删除用户角色信息
      * @param username 用户账号
      */
+//    public boolean changePassword(String username, String password) {
+//        return dsl.update(SYS_USER_ROLE)
+//                .set(SYS_USER_ROLE.PASSWORD, password)
+//                .where(SYS_USER_ROLE.USERNAME.eq(username))
+//                .execute() > 0;
+//    }
+
+    /**
+     * 根据用户账号删除用户角色信息
+     * @param username 用户账号
+     */
     public int delete(String username) {
         return dsl.deleteFrom(SYS_USER_ROLE)
                 .where(SYS_USER_ROLE.USERNAME.eq(username))

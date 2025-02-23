@@ -2,6 +2,8 @@ package org.chenjh.aiqasystem.service.user;
 
 import org.chenjh.aiqasystem.domain.dto.system.UserInfoDTO;
 import org.chenjh.aiqasystem.domain.dto.system.UserTokenDTO;
+import org.chenjh.aiqasystem.domain.vo.system.ChangePasswordVO;
+import org.chenjh.aiqasystem.domain.vo.system.UpdateUserVO;
 import org.chenjh.aiqasystem.domain.vo.system.UserLoginVO;
 import org.chenjh.aiqasystem.domain.vo.system.UserRegisterVO;
 
@@ -27,10 +29,9 @@ public interface AccountService {
     /**
      * 修改密码
      * @param account 账号
-     * @param oldPassword 旧密码
-     * @param newPassword 新密码
+     * @param vo 密码信息
      */
-    String changePassword(String account, String oldPassword, String newPassword);
+    String changePassword(String account, ChangePasswordVO vo);
 
 
     /**
@@ -43,11 +44,9 @@ public interface AccountService {
     /**
      * 更新用户信息
      * @param account 账号
-     * @param name 姓名
-     * @param email 邮箱
-     * @param phone 电话
+     * @param vo 更新信息
      * @return 更新结果
      */
-    String updateUserInfo(String account, String name, String email, String phone);
+    String updateUserInfo(String account, UpdateUserVO vo);
 
 }

@@ -20,5 +20,4 @@ public class UserInfoDTO {
     private Integer sex;           // 性别：1-男性，2-女性
     private String avatar;         // 头像（Base64）
     private Set<RoleDTO> roles;            // 角色
-
 }

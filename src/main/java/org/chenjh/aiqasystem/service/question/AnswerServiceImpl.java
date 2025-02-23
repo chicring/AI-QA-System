@@ -2,6 +2,7 @@ package org.chenjh.aiqasystem.service.question;
 
 import jakarta.annotation.Resource;
 import org.chenjh.aiqasystem.repo.question.AnswerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @author hjong
  * @date 2025−02−22
  */
+@Service
 public class AnswerServiceImpl implements AnswerService {
 
     @Resource
