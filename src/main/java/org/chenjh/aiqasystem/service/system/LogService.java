@@ -1,5 +1,8 @@
 package org.chenjh.aiqasystem.service.system;
 
+import org.chenjh.aiqasystem.domain.PageResult;
+import org.chenjh.aiqasystem.domain.dto.system.OperationLogDTO;
+
 /**
  * @author hjong
  * @date 2025-01-16
@@ -22,5 +25,5 @@ public interface LogService {
      * @param pageSize
      * @return
      */
-//    PageResult<List<OperationLogVO>> queryOperationLog(String q, int page, int pageSize);
+    PageResult<OperationLogDTO> queryOperationLog(String q, int page, int pageSize);
 }

@@ -70,7 +70,7 @@ public class AnswerTb extends TableImpl<AnswerRecord> {
     /**
      * The column <code>ai_qa_system.qa_answer.extended_filed</code>. 额外内容
      */
-    public final TableField<AnswerRecord, String> EXTENDED_FILED = createField(DSL.name("extended_filed"), SQLDataType.VARCHAR(200).nullable(false), this, "额外内容");
+    public final TableField<AnswerRecord, String> EXTENDED_FILED = createField(DSL.name("extended_filed"), SQLDataType.VARCHAR(200), this, "额外内容");
 
     /**
      * The column <code>ai_qa_system.qa_answer.answer_status</code>. 状态 1:正常

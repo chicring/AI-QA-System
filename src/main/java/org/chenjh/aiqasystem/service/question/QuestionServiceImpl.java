@@ -47,9 +47,14 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public QuestionDTO getQuestionById(Long questionId) {
-        return questionRepository.findById(questionId).orElseThrow(
-                () -> new ResourceNotFoundException("问题:" + questionId + " 不存在")
-        );
+        // 先查询问题是否存在
+        QuestionDTO questionDTO = questionRepository.findById(questionId)
+                .orElseThrow(() -> new ResourceNotFoundException("问题:" + questionId + " 不存在"));
+
+        // 问题存在才更新浏览次数
+        questionRepository.updateViewCount(questionId);
+
+        return questionDTO;
     }
 
     @Override

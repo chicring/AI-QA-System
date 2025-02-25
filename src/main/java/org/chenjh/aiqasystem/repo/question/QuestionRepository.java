@@ -85,6 +85,48 @@ public class QuestionRepository{
     }
 
 
+    public void updateViewCount(Long id) {
+        dsl.update(QA_QUESTION)
+                .set(QA_QUESTION.VIEW_COUNT, QA_QUESTION.VIEW_COUNT.add(1))
+                .where(QA_QUESTION.QUESTION_ID.eq(id))
+                .execute();
+    }
+
+
+    public List<QuestionDTO> searchByTitle(String q) {
+        return dsl.select(
+                    QA_QUESTION.QUESTION_ID,
+                    QA_QUESTION.QUESTION_TITLE,
+                    QA_QUESTION.QUESTION_TIPS,
+                    QA_QUESTION.DIFFICULTY,
+                    QA_QUESTION.CREATE_TIME,
+                    QA_QUESTION.VIEW_COUNT,
+                    multiset(
+                            select(QA_TAG.TAG_NAME)
+                                    .from(QA_TAG)
+                                    .join(QA_MAPPING)
+                                    .on(QA_TAG.ID.eq(QA_MAPPING.TAG_ID))
+                                    .where(QA_MAPPING.QUESTION_ID.eq(QA_QUESTION.QUESTION_ID))
+                                    .orderBy(QA_TAG.SORT_NUM)
+                    ).convertFrom(rs -> rs.map(Record1::value1))
+                            .as("tagNames")
+                )
+                .from(QA_QUESTION)
+                .join(QA_MAPPING)
+                .on(QA_QUESTION.QUESTION_ID.eq(QA_MAPPING.QUESTION_ID))
+                .join(QA_TAG)
+                .on(QA_TAG.ID.eq(QA_MAPPING.TAG_ID))
+                .where(QA_QUESTION.QUESTION_TITLE.like(concat("%", q, "%")))
+                .and(QA_QUESTION.IS_DELETED.eq(false))
+                .groupBy(QA_QUESTION.QUESTION_ID,  // 添加 groupBy 确保每个问题只出现一次
+                        QA_QUESTION.QUESTION_TITLE,
+                        QA_QUESTION.QUESTION_TIPS,
+                        QA_QUESTION.DIFFICULTY,
+                        QA_QUESTION.CREATE_TIME,
+                        QA_QUESTION.VIEW_COUNT)
+                .fetchInto(QuestionDTO.class);
+    }
+
     public PageResult<QuestionDTO> findPageResult(QueryQuestionVO vo){
         Condition condition = buildCondition(vo);
 

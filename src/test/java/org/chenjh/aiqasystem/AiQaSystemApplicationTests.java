@@ -14,7 +14,6 @@ class AiQaSystemApplicationTests {
     @Test
     void contextLoads() {
 
-        System.out.println(userRepository.findALl());
     }
 
 }

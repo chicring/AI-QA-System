@@ -14,23 +14,15 @@ import java.util.List;
 @Component
 public class StpInterfaceImpl  implements StpInterface {
 
-    private final PermissionRepository permissionRepository;
-
-    private final RolePermissionRepository rolePermissionRepository;
-
-    public StpInterfaceImpl(PermissionRepository permissionRepository, RolePermissionRepository rolePermissionRepository) {
-        this.permissionRepository = permissionRepository;
-        this.rolePermissionRepository = rolePermissionRepository;
-    }
 
 
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return permissionRepository.findAll();
+        return null;
     }
 
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        return rolePermissionRepository.queryPermissionScopeByUserId((String) loginId);
+        return null;
     }
 }

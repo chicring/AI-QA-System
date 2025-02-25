@@ -1,6 +1,10 @@
 package org.chenjh.aiqasystem.service.system;
 
+import jakarta.annotation.Resource;
+import org.chenjh.aiqasystem.domain.PageResult;
+import org.chenjh.aiqasystem.domain.dto.system.OperationLogDTO;
 import org.chenjh.aiqasystem.domain.entity.system.OperationLog;
+import org.chenjh.aiqasystem.repo.system.OperationLogRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,15 +16,16 @@ import java.time.LocalDateTime;
 @Service
 public class LogServiceImpl implements LogService{
 
+    @Resource
+    private OperationLogRepository operationLogRepository;
 
     @Override
     public void saveOperationLog(String content, String methodName, String requestParams, String operator, long timeTaken) {
-        OperationLog log = new OperationLog();
-        log.setContent(content);
-        log.setMethodName(methodName);
-        log.setRequestParams(requestParams);
-        log.setOperator(operator);
-        log.setOperationTime(LocalDateTime.now());
-        log.setTimeTaken(timeTaken);
+        operationLogRepository.save(content, methodName, requestParams, operator, timeTaken);
+    }
+
+    @Override
+    public PageResult<OperationLogDTO> queryOperationLog(String q, int page, int pageSize) {
+        return null;
     }
 }

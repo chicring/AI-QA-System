@@ -1,6 +1,7 @@
 package org.chenjh.aiqasystem.repo.question;
 
 import com.nrapendra.jooq.tables.records.AnswerRecord;
+import org.chenjh.aiqasystem.domain.dto.question.AnswerDTO;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
@@ -37,6 +38,18 @@ public class AnswerRepository {
         }).toList();
 
         return dsl.batchInsert(records).execute().length == records.size();
+    }
+
+
+    public AnswerDTO findAnswerByQuestionId(Long questionId){
+
+        List<String> answers = dsl.select(QA_ANSWER.QUESTION_ANSWER)
+                .from(QA_ANSWER)
+                .where(QA_ANSWER.QUESTION_ID.eq(questionId))
+                .fetch()
+                .getValues(QA_ANSWER.QUESTION_ANSWER);
+
+        return new AnswerDTO(questionId, answers);
     }
 
     /**

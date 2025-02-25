@@ -8,6 +8,17 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  ai:
+    openai:
+      api-key:
+      base-url: https://open.bigmodel.cn/api/paas/
+      chat:
+        api-key:
+        base-url: https://open.bigmodel.cn/api/paas/
+        completions-path: /v4/chat/completions
+        options:
+          model: GLM-4-flash
+
 sa-token:
   # token 名称（同时也是 cookie 名称）
   token-name: Authorization

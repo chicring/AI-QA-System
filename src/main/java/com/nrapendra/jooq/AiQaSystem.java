@@ -7,6 +7,7 @@ package com.nrapendra.jooq;
 import com.nrapendra.jooq.tables.AnswerTb;
 import com.nrapendra.jooq.tables.CategoryTb;
 import com.nrapendra.jooq.tables.MappingTb;
+import com.nrapendra.jooq.tables.OperationLogTb;
 import com.nrapendra.jooq.tables.PermissionTb;
 import com.nrapendra.jooq.tables.QuestionTb;
 import com.nrapendra.jooq.tables.RolePermissionTb;
@@ -62,6 +63,11 @@ public class AiQaSystem extends SchemaImpl {
     public final TagTb QA_TAG = TagTb.QA_TAG;
 
     /**
+     * The table <code>ai_qa_system.sys_operation_log</code>.
+     */
+    public final OperationLogTb SYS_OPERATION_LOG = OperationLogTb.SYS_OPERATION_LOG;
+
+    /**
      * 权限表
      */
     public final PermissionTb SYS_PERMISSION = PermissionTb.SYS_PERMISSION;
@@ -107,6 +113,7 @@ public class AiQaSystem extends SchemaImpl {
             MappingTb.QA_MAPPING,
             QuestionTb.QA_QUESTION,
             TagTb.QA_TAG,
+            OperationLogTb.SYS_OPERATION_LOG,
             PermissionTb.SYS_PERMISSION,
             RoleTb.SYS_ROLE,
             RolePermissionTb.SYS_ROLE_PERMISSION,
