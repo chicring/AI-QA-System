@@ -7,6 +7,7 @@ package com.nrapendra.jooq;
 import com.nrapendra.jooq.tables.AnswerTb;
 import com.nrapendra.jooq.tables.CategoryTb;
 import com.nrapendra.jooq.tables.MappingTb;
+import com.nrapendra.jooq.tables.NotificationTb;
 import com.nrapendra.jooq.tables.OperationLogTb;
 import com.nrapendra.jooq.tables.PermissionTb;
 import com.nrapendra.jooq.tables.QuestionFavoriteTb;
@@ -75,6 +76,11 @@ public class AiQaSystem extends SchemaImpl {
     public final TagTb QA_TAG = TagTb.QA_TAG;
 
     /**
+     * The table <code>ai_qa_system.sys_notification</code>.
+     */
+    public final NotificationTb SYS_NOTIFICATION = NotificationTb.SYS_NOTIFICATION;
+
+    /**
      * The table <code>ai_qa_system.sys_operation_log</code>.
      */
     public final OperationLogTb SYS_OPERATION_LOG = OperationLogTb.SYS_OPERATION_LOG;
@@ -127,6 +133,7 @@ public class AiQaSystem extends SchemaImpl {
             QuestionFavoriteTb.QA_QUESTION_FAVORITE,
             QuestionHistoryTb.QA_QUESTION_HISTORY,
             TagTb.QA_TAG,
+            NotificationTb.SYS_NOTIFICATION,
             OperationLogTb.SYS_OPERATION_LOG,
             PermissionTb.SYS_PERMISSION,
             RoleTb.SYS_ROLE,

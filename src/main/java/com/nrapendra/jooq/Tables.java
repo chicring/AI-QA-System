@@ -7,6 +7,7 @@ package com.nrapendra.jooq;
 import com.nrapendra.jooq.tables.AnswerTb;
 import com.nrapendra.jooq.tables.CategoryTb;
 import com.nrapendra.jooq.tables.MappingTb;
+import com.nrapendra.jooq.tables.NotificationTb;
 import com.nrapendra.jooq.tables.OperationLogTb;
 import com.nrapendra.jooq.tables.PermissionTb;
 import com.nrapendra.jooq.tables.QuestionFavoriteTb;
@@ -59,6 +60,11 @@ public class Tables {
      * 标签表
      */
     public static final TagTb QA_TAG = TagTb.QA_TAG;
+
+    /**
+     * The table <code>ai_qa_system.sys_notification</code>.
+     */
+    public static final NotificationTb SYS_NOTIFICATION = NotificationTb.SYS_NOTIFICATION;
 
     /**
      * The table <code>ai_qa_system.sys_operation_log</code>.
