@@ -7,8 +7,10 @@ import org.chenjh.aiqasystem.domain.Result;
 import org.chenjh.aiqasystem.domain.dto.question.QuestionDTO;
 import org.chenjh.aiqasystem.domain.vo.question.QueryQuestionVO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveQuestionVO;
+import org.chenjh.aiqasystem.exception.custom.BadRequestException;
 import org.chenjh.aiqasystem.service.question.QuestionService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -55,8 +57,22 @@ public class QuestionController {
      * @param vo 问题查询条件
      * @return 问题列表
      */
-    @GetMapping("/list-question")
-    public Result<PageResult<QuestionDTO>> getPageResult(QueryQuestionVO vo){
+    @PostMapping("/list-question")
+    public Result<PageResult<QuestionDTO>> getPageResult(@RequestBody QueryQuestionVO vo){
         return Result.ok(questionService.getQuestionList(vo));
+    }
+
+    /**
+     * 批量导入题目
+     * @param file 题目文件
+     * @return 导入结果
+     */
+    @PostMapping("/import")
+    public Result<?> importQuestions(@RequestParam("file") MultipartFile file){
+        if (file.isEmpty()){
+            throw new BadRequestException("文件不能为空");
+        }
+
+        return Result.ok();
     }
 }

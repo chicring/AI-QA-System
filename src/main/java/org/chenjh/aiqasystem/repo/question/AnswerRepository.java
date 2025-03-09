@@ -28,16 +28,15 @@ public class AnswerRepository {
      * @param answer 答案
      * @return boolean
      */
-    public Boolean save(Long questionId, List<String> answer){
+    public Boolean save(Long questionId, String answer){
 
-        List<AnswerRecord> records = answer.stream().map(a -> {
-            AnswerRecord record = new AnswerRecord();
-            record.setQuestionId(questionId);
-            record.setQuestionAnswer(a);
-            return record;
-        }).toList();
+        AnswerRecord record = new AnswerRecord();
+        record.setQuestionId(questionId);
+        record.setQuestionAnswer(answer);
 
-        return dsl.batchInsert(records).execute().length == records.size();
+        return dsl.insertInto(QA_ANSWER)
+                .set(record)
+                .execute() > 0;
     }
 
 

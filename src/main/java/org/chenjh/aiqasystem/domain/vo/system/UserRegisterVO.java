@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserRegisterVO {
     @NotBlank(message = "用户账号不能为空")
-    @Pattern(regexp = "^[a-zA-Z0-9]{4,30}$", message = "用户账号由 数字、字母 组成")
     @Size(min = 4, max = 30, message = "用户账号长度为 4-30 个字符")
     private String username;       // 用户名
 
-    @Pattern(regexp = "^[a-zA-Z0-9_]{4,16}$", message = "用户账号由 数字、字母、下划线 组成")
+    /// 密码只能包含字母、数字
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "密码只能包含字母、数字")
     @Size(min = 4, max = 16, message = "密码长度为 4-16 位")
     private String password;       // 密码
 

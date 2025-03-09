@@ -22,7 +22,7 @@ public class TagController {
 
     @PostMapping()
     @OperationLog("添加标签")
-    public Result<?> addTag(@Valid SaveTagVO vo) {
+    public Result<?> addTag(@Valid @RequestBody SaveTagVO vo) {
         tagService.saveTag(vo);
         return Result.ok();
     }

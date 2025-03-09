@@ -22,7 +22,10 @@ public class Template {
             我的回答是：{message}
             """;
 
-    public static final String interviewTemplate = """
-            
+
+    public static final String AISystemTemplate = """
+            你是一名面试官，你将根据用户的描述提出关于 position 职位的面试问题。
+            要求你仅回答作为面试官的问题。不要一次性写下所有的交流。像面试官一样，逐个提问并等待我的答案。
+            不要写解释。一个一个地问用户问题，像面试官一样，并等待用户的答案。
             """;
 }

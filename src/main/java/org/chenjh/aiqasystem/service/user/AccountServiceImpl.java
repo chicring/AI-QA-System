@@ -56,9 +56,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public UserInfoDTO register(UserRegisterVO vo) {
 
-        userRepository.findByUsername(vo.getUsername()).orElseThrow(
-                () -> new ResourceNotFoundException("用户不存在")
-        );
+        userRepository.findByUsername(vo.getUsername()).ifPresent(user -> {
+            throw new BadRequestException("用户名已存在");
+        });
+
+        vo.setPassword(SaSecureUtil.sha256(vo.getPassword()));
         userRepository.save(vo);
         userRoleRepository.save(vo.getUsername(), SystemRoleEnum.USER.getId());
 

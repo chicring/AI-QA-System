@@ -9,6 +9,8 @@ import com.nrapendra.jooq.tables.CategoryTb;
 import com.nrapendra.jooq.tables.MappingTb;
 import com.nrapendra.jooq.tables.OperationLogTb;
 import com.nrapendra.jooq.tables.PermissionTb;
+import com.nrapendra.jooq.tables.QuestionFavoriteTb;
+import com.nrapendra.jooq.tables.QuestionHistoryTb;
 import com.nrapendra.jooq.tables.QuestionTb;
 import com.nrapendra.jooq.tables.RolePermissionTb;
 import com.nrapendra.jooq.tables.RoleTb;
@@ -56,6 +58,16 @@ public class AiQaSystem extends SchemaImpl {
      * 题目表
      */
     public final QuestionTb QA_QUESTION = QuestionTb.QA_QUESTION;
+
+    /**
+     * 题目收藏表
+     */
+    public final QuestionFavoriteTb QA_QUESTION_FAVORITE = QuestionFavoriteTb.QA_QUESTION_FAVORITE;
+
+    /**
+     * 题目历史记录表
+     */
+    public final QuestionHistoryTb QA_QUESTION_HISTORY = QuestionHistoryTb.QA_QUESTION_HISTORY;
 
     /**
      * 标签表
@@ -112,6 +124,8 @@ public class AiQaSystem extends SchemaImpl {
             CategoryTb.QA_CATEGORY,
             MappingTb.QA_MAPPING,
             QuestionTb.QA_QUESTION,
+            QuestionFavoriteTb.QA_QUESTION_FAVORITE,
+            QuestionHistoryTb.QA_QUESTION_HISTORY,
             TagTb.QA_TAG,
             OperationLogTb.SYS_OPERATION_LOG,
             PermissionTb.SYS_PERMISSION,

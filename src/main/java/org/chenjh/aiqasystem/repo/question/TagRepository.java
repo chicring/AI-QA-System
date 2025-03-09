@@ -14,6 +14,7 @@ import org.jooq.types.UByte;
 import org.jooq.types.UInteger;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,16 +66,25 @@ public class TagRepository {
 
     public List<TagGroupDTO> findGroupByCategory() {
         return dsl.select(
-                    QA_CATEGORY.ID,
-                    QA_CATEGORY.CATEGORY_NAME,
-                    array(select(QA_TAG.TAG_NAME)
-                            .from(QA_TAG)
-                            .where(QA_TAG.CATEGORY_ID.eq(QA_CATEGORY.ID))
-                            .orderBy(QA_TAG.SORT_NUM)
-                    ).as("tagNames")
+                        QA_CATEGORY.ID,
+                        QA_CATEGORY.CATEGORY_NAME,
+                        groupConcat(QA_TAG.TAG_NAME)
+                                .orderBy(QA_TAG.SORT_NUM)
+                                .separator(",")
+                                .as("tagNames")
                 )
                 .from(QA_CATEGORY)
-                .fetchInto(TagGroupDTO.class);
+                .leftJoin(QA_TAG)
+                .on(QA_TAG.CATEGORY_ID.eq(QA_CATEGORY.ID))
+                .groupBy(QA_CATEGORY.ID, QA_CATEGORY.CATEGORY_NAME)
+                .fetch(record -> {
+                    TagGroupDTO dto = new TagGroupDTO();
+                    dto.setCategoryName(record.get(QA_CATEGORY.CATEGORY_NAME));
+                    String tags = record.get(2, String.class);
+                    dto.setTagNames(tags == null ? List.of() :
+                            Arrays.asList(tags.split(",")));
+                    return dto;
+                });
     }
 
 }

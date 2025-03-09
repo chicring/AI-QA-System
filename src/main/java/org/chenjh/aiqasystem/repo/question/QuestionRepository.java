@@ -68,6 +68,7 @@ public class QuestionRepository{
                     QA_QUESTION.DIFFICULTY,
                     QA_QUESTION.CREATE_TIME,
                     QA_QUESTION.VIEW_COUNT,
+                    QA_MAPPING.CATEGORY_ID,
                     multiset(
                             select(QA_TAG.TAG_NAME)
                                     .from(QA_TAG)
@@ -79,6 +80,8 @@ public class QuestionRepository{
                             .as("tagNames")
                 )
                 .from(QA_QUESTION)
+                .join(QA_MAPPING)
+                .on(QA_QUESTION.QUESTION_ID.eq(QA_MAPPING.QUESTION_ID))
                 .where(QA_QUESTION.QUESTION_ID.eq(id))
                 .and(QA_QUESTION.IS_DELETED.eq(false))
                 .fetchOptionalInto(QuestionDTO.class);
@@ -144,6 +147,7 @@ public class QuestionRepository{
                     QA_QUESTION.DIFFICULTY,
                     QA_QUESTION.CREATE_TIME,
                     QA_QUESTION.VIEW_COUNT,
+                    QA_MAPPING.CATEGORY_ID,
                     multiset(
                             select(QA_TAG.TAG_NAME)
                                     .from(QA_TAG)
@@ -163,7 +167,8 @@ public class QuestionRepository{
                         QA_QUESTION.QUESTION_TIPS,
                         QA_QUESTION.DIFFICULTY,
                         QA_QUESTION.CREATE_TIME,
-                        QA_QUESTION.VIEW_COUNT)
+                        QA_QUESTION.VIEW_COUNT,
+                        QA_MAPPING.CATEGORY_ID)
                 .limit(vo.getPageSize())
                 .offset((vo.getPageNum() - 1) * vo.getPageSize())
                 .fetchInto(QuestionDTO.class);

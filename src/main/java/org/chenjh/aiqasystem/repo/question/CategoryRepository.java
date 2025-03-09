@@ -1,10 +1,13 @@
 package org.chenjh.aiqasystem.repo.question;
 
+import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.question.CategoryDTO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveCategoryVO;
 import org.chenjh.aiqasystem.domain.vo.question.UpdateCategoryVO;
+import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;
+import org.jooq.impl.DSL;
 import org.jooq.types.UInteger;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +32,7 @@ public class CategoryRepository {
         this.dsl = dsl;
     }
 
-    public Optional<CategoryDTO> findById(long categoryId) {
+    public Optional<CategoryDTO> findCategoryById(long categoryId) {
         CategoryDTO categoryDTO = dsl
                 .select(
                         QA_CATEGORY.ID,
@@ -50,6 +53,34 @@ public class CategoryRepository {
                 .where(QA_CATEGORY.ID.eq(categoryId))
                 .fetchOneInto(CategoryDTO.class);
         return Optional.ofNullable(categoryDTO);
+    }
+
+    public PageResult<CategoryDTO> findPage(int page, int size, String q) {
+        Condition condition =  DSL.trueCondition();
+        if (q != null && !q.isEmpty()) {
+            condition = condition.and(QA_CATEGORY.CATEGORY_NAME.like("%" + q + "%"));
+        }
+        Long total = dsl.selectCount()
+                .from(QA_CATEGORY)
+                .where(condition)
+                .fetchOne(0, Long.class);
+        List<CategoryDTO> categoryDTOList = dsl
+                .select(
+                        QA_CATEGORY.ID,
+                        QA_CATEGORY.CATEGORY_NAME,
+                        QA_CATEGORY.CATEGORY_LEVEL,
+                        QA_CATEGORY.IMAGE_URL,
+                        QA_CATEGORY.DESCRIPTION,
+                        QA_CATEGORY.PARENT_CATEGORY_ID,
+                        QA_CATEGORY.SORT_NUM
+                )
+                .from(QA_CATEGORY)
+                .where(condition)
+                .orderBy(QA_CATEGORY.SORT_NUM.asc())
+                .limit(size)
+                .offset((page - 1) * size)
+                .fetchInto(CategoryDTO.class);
+        return new PageResult<>(page, size, total, categoryDTOList);
     }
 
     public List<CategoryDTO> findAll() {

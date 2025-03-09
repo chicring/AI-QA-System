@@ -9,6 +9,8 @@ import com.nrapendra.jooq.tables.CategoryTb;
 import com.nrapendra.jooq.tables.MappingTb;
 import com.nrapendra.jooq.tables.OperationLogTb;
 import com.nrapendra.jooq.tables.PermissionTb;
+import com.nrapendra.jooq.tables.QuestionFavoriteTb;
+import com.nrapendra.jooq.tables.QuestionHistoryTb;
 import com.nrapendra.jooq.tables.QuestionTb;
 import com.nrapendra.jooq.tables.RolePermissionTb;
 import com.nrapendra.jooq.tables.RoleTb;
@@ -42,6 +44,16 @@ public class Tables {
      * 题目表
      */
     public static final QuestionTb QA_QUESTION = QuestionTb.QA_QUESTION;
+
+    /**
+     * 题目收藏表
+     */
+    public static final QuestionFavoriteTb QA_QUESTION_FAVORITE = QuestionFavoriteTb.QA_QUESTION_FAVORITE;
+
+    /**
+     * 题目历史记录表
+     */
+    public static final QuestionHistoryTb QA_QUESTION_HISTORY = QuestionHistoryTb.QA_QUESTION_HISTORY;
 
     /**
      * 标签表

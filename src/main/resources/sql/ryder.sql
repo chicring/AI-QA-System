@@ -66,6 +66,30 @@ CREATE TABLE `qa_answer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='题目答案表';
 
 
+CREATE TABLE `qa_question_history` (
+                                       `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                                       `username` varchar(36) NOT NULL COMMENT '用户名',
+                                       `question_id` bigint NOT NULL COMMENT '题目ID',
+                                        `status` int NOT NULL DEFAULT '1' COMMENT '状态 1:看过 2:已掌握 3:待复习',
+                                       `view_count` int unsigned NOT NULL DEFAULT '1' COMMENT '浏览次数',
+                                       `last_view_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最近一次查看时间',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                                       `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 0:未删除 1:已删除',
+                                       PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='题目历史记录表';
+
+CREATE TABLE `qa_question_favorite` (
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                                        `username` varchar(36) NOT NULL COMMENT '用户名',
+                                        `question_id` bigint NOT NULL COMMENT '题目ID',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                                        `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 0:未删除 1:已删除',
+                                        PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='题目收藏表';
+
+
 CREATE TABLE `sys_user` (
                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
                             `username` varchar(36) NOT NULL COMMENT '用户名',

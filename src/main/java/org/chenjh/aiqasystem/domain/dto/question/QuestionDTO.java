@@ -1,5 +1,6 @@
 package org.chenjh.aiqasystem.domain.dto.question;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,8 @@ public class QuestionDTO {
     private Integer difficulty;
     private Integer viewCount;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Instant createTime;
     private List<String> tagNames;
+    private Integer categoryId;
 }

@@ -1,7 +1,9 @@
-package org.chenjh.aiqasystem.service.question;
+package org.chenjh.aiqasystem.service.question.impl;
 
 import jakarta.annotation.Resource;
+import org.chenjh.aiqasystem.domain.dto.question.AnswerDTO;
 import org.chenjh.aiqasystem.repo.question.AnswerRepository;
+import org.chenjh.aiqasystem.service.question.AnswerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,17 +19,20 @@ public class AnswerServiceImpl implements AnswerService {
     private AnswerRepository answerRepository;
 
     @Override
-    public void saveAnswer(Long questionId, String answer) {
-        saveAnswer(questionId, List.of(answer));
+    public AnswerDTO findAnswerByQuestionId(Long questionId) {
+        return answerRepository.findAnswerByQuestionId(questionId);
     }
 
     @Override
-    public void saveAnswer(Long questionId, List<String> answer) {
+    public void saveAnswer(Long questionId, String answer) {
         answerRepository.save(questionId, answer);
     }
+
 
     @Override
     public void deleteAnswer(Long answerId) {
         answerRepository.delete(answerId);
     }
+
+
 }
