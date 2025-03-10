@@ -1,20 +1,18 @@
-package org.chenjh.aiqasystem.service.system;
+package org.chenjh.aiqasystem.service.system.impl;
 
 import jakarta.annotation.Resource;
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.system.OperationLogDTO;
-import org.chenjh.aiqasystem.domain.entity.system.OperationLog;
 import org.chenjh.aiqasystem.repo.system.OperationLogRepository;
+import org.chenjh.aiqasystem.service.system.LogService;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 /**
  * @author hjong
  * @date 2025−01−16
  */
 @Service
-public class LogServiceImpl implements LogService{
+public class LogServiceImpl implements LogService {
 
     @Resource
     private OperationLogRepository operationLogRepository;

@@ -10,10 +10,10 @@ spring:
 
   ai:
     openai:
-      api-key:
+      api-key: 9d768812baeeb5a3649e76eb3c0c149f.IgTlJWVNcRQuQlwg
       base-url: https://open.bigmodel.cn/api/paas/
       chat:
-        api-key:
+        api-key: 9d768812baeeb5a3649e76eb3c0c149f.IgTlJWVNcRQuQlwg
         base-url: https://open.bigmodel.cn/api/paas/
         completions-path: /v4/chat/completions
         options:

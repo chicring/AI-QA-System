@@ -1,15 +1,16 @@
-package org.chenjh.aiqasystem.service.system;
+package org.chenjh.aiqasystem.service.system.impl;
 
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.system.PermissionDTO;
 import org.chenjh.aiqasystem.domain.dto.system.RoleDTO;
 import org.chenjh.aiqasystem.domain.vo.system.RoleVO;
+import org.chenjh.aiqasystem.service.system.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDTO addRole(RoleVO role, String username) {
