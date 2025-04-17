@@ -1,6 +1,7 @@
 package org.chenjh.aiqasystem.service.question.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.idev.excel.FastExcel;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.chenjh.aiqasystem.domain.PageResult;
@@ -10,6 +11,7 @@ import org.chenjh.aiqasystem.domain.vo.question.SaveQuestionVO;
 import org.chenjh.aiqasystem.exception.custom.ResourceNotFoundException;
 import org.chenjh.aiqasystem.exception.custom.ServerException;
 import org.chenjh.aiqasystem.listener.events.ViewQuestionEvent;
+import org.chenjh.aiqasystem.listener.excel.UploadQuestionListener;
 import org.chenjh.aiqasystem.repo.question.AnswerRepository;
 import org.chenjh.aiqasystem.repo.question.QAMappingRepository;
 import org.chenjh.aiqasystem.repo.question.QuestionRepository;
@@ -17,7 +19,9 @@ import org.chenjh.aiqasystem.service.question.QuestionService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -69,5 +73,18 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public PageResult<QuestionDTO> getQuestionList(QueryQuestionVO question) {
         return questionRepository.findPageResult(question);
+    }
+
+    @Override
+    public void batchImportQuestion(MultipartFile file) {
+        try{
+            FastExcel.read(file.getInputStream(), SaveQuestionVO.class,
+                            new UploadQuestionListener(this))
+                    .sheet()
+                    .doRead();
+        }catch (IOException e){
+            log.error("导入题目失败", e);
+            throw new ServerException("导入题目失败");
+        }
     }
 }

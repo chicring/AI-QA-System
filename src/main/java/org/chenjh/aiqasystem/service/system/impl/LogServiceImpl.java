@@ -3,6 +3,7 @@ package org.chenjh.aiqasystem.service.system.impl;
 import jakarta.annotation.Resource;
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.system.OperationLogDTO;
+import org.chenjh.aiqasystem.domain.vo.system.QueryOperationLogVO;
 import org.chenjh.aiqasystem.repo.system.OperationLogRepository;
 import org.chenjh.aiqasystem.service.system.LogService;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public PageResult<OperationLogDTO> queryOperationLog(String q, int page, int pageSize) {
-        return null;
+    public PageResult<OperationLogDTO> queryOperationLog(QueryOperationLogVO vo) {
+        return operationLogRepository.queryOperationLog(vo);
     }
 }

@@ -2,6 +2,7 @@ package org.chenjh.aiqasystem.service.system;
 
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.system.OperationLogDTO;
+import org.chenjh.aiqasystem.domain.vo.system.QueryOperationLogVO;
 
 /**
  * @author hjong
@@ -20,10 +21,8 @@ public interface LogService {
 
     /**
      * 查询操作日志
-     * @param q 查询条件
-     * @param page
-     * @param pageSize
-     * @return
+     * @param vo 查询条件
+     * @return 操作日志列表
      */
-    PageResult<OperationLogDTO> queryOperationLog(String q, int page, int pageSize);
+    PageResult<OperationLogDTO> queryOperationLog(QueryOperationLogVO vo);
 }

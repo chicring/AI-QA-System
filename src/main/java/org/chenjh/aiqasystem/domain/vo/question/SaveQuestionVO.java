@@ -3,6 +3,7 @@ package org.chenjh.aiqasystem.domain.vo.question;
 import cn.idev.excel.annotation.ExcelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.chenjh.aiqasystem.domain.excel.CustomListConverter;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class SaveQuestionVO {
     @ExcelProperty(value = "分类ID")
     private Long categoryId;
 
-    @ExcelProperty(value = "标签ID 逗号分隔")
+    @ExcelProperty(value = "标签ID 逗号分隔", converter = CustomListConverter.class)
     private List<Long> tagIds;
 
     @ExcelProperty(value = "答案")

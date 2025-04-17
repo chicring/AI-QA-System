@@ -5,8 +5,10 @@ import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.system.NotificationDTO;
 import org.chenjh.aiqasystem.domain.vo.system.QueryNotificationVO;
 import org.chenjh.aiqasystem.domain.vo.system.SaveNotificationVO;
+import org.chenjh.aiqasystem.domain.vo.system.SendNotifyVO;
 import org.chenjh.aiqasystem.exception.custom.ResourceNotFoundException;
 import org.chenjh.aiqasystem.repo.system.NotificationRepository;
+import org.chenjh.aiqasystem.domain.dto.system.admin.NotifyAdminDTO;
 import org.chenjh.aiqasystem.service.system.NotificationService;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void save(SaveNotificationVO vo) {
+    public void save(SendNotifyVO vo) {
         notificationRepository.save(vo);
     }
 
@@ -50,5 +52,10 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void readAll(String username) {
         notificationRepository.readAll(username);
+    }
+
+    @Override
+    public PageResult<NotifyAdminDTO> pageForAdmin(QueryNotificationVO vo) {
+        return notificationRepository.pageForAdmin(vo);
     }
 }

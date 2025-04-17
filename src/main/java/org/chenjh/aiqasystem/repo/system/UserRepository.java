@@ -2,17 +2,23 @@ package org.chenjh.aiqasystem.repo.system;
 
 
 import com.nrapendra.jooq.tables.records.UserRecord;
+import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.system.UserInfoDTO;
+import org.chenjh.aiqasystem.domain.dto.system.admin.UserAdminDTO;
 import org.chenjh.aiqasystem.domain.vo.system.ChangePasswordVO;
 import org.chenjh.aiqasystem.domain.vo.system.UpdateUserVO;
 import org.chenjh.aiqasystem.domain.vo.system.UserRegisterVO;
+import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.nrapendra.jooq.Tables.SYS_USER;
+import static org.jooq.impl.DSL.concat;
 
 
 /**
@@ -31,6 +37,10 @@ public class UserRepository {
         return dsl.newRecord(SYS_USER,user).store();
     }
 
+
+    public Long count(){
+        return dsl.selectCount().from(SYS_USER).fetchOne(0, Long.class);
+    }
 
     public Integer save(UserRegisterVO vo){
         return dsl.insertInto(SYS_USER)
@@ -79,5 +89,26 @@ public class UserRepository {
         }
 
         return userRecord.update() > 0;
+    }
+
+
+    public PageResult<UserAdminDTO> pageForAdmin(int pageNum, int pageSize, String username) {
+        Condition condition = DSL.noCondition();
+        if (username != null && !username.isEmpty()) {
+            condition = condition.and(SYS_USER.USERNAME.like(concat("%" + username + "%")));
+        }
+        Long total = dsl.selectCount()
+                .from(SYS_USER)
+                .where(condition)
+                .fetchOne(0, Long.class);
+
+        List<UserAdminDTO> list = dsl.selectFrom(SYS_USER)
+                .where(condition)
+                .orderBy(SYS_USER.CREATE_TIME.desc())
+                .limit(pageSize)
+                .offset((pageNum - 1) * pageSize)
+                .fetchInto(UserAdminDTO.class);
+
+        return new PageResult<>(pageNum, pageSize, total, list);
     }
 }

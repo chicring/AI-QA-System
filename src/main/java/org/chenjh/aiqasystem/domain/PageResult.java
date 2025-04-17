@@ -20,4 +20,11 @@ public class PageResult<T> {
     private int pageSize;
     private Long total;
     private List<T> data;
+
+    /**
+     * @author hjong
+     * @date 2025−04−17
+     */
+    public static class PageQuery {
+    }
 }

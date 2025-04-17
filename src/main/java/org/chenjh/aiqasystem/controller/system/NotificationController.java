@@ -5,7 +5,9 @@ import jakarta.annotation.Resource;
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.Result;
 import org.chenjh.aiqasystem.domain.dto.system.NotificationDTO;
+import org.chenjh.aiqasystem.domain.dto.system.admin.NotifyAdminDTO;
 import org.chenjh.aiqasystem.domain.vo.system.QueryNotificationVO;
+import org.chenjh.aiqasystem.domain.vo.system.SendNotifyVO;
 import org.chenjh.aiqasystem.service.system.NotificationService;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,6 +63,23 @@ public class NotificationController {
     @PutMapping("/mark-all-read")
     public Result<?> readAllNotification() {
         notificationService.readAll(StpUtil.getLoginIdAsString());
+        return Result.ok();
+    }
+
+    /**
+     * 管理端分页查询通知
+     */
+    @GetMapping("/admin/page")
+    public Result<PageResult<NotifyAdminDTO>> pageForAdmin(QueryNotificationVO vo) {
+        return Result.ok(notificationService.pageForAdmin(vo));
+    }
+
+    /**
+     * 管理端发送通知
+     */
+    @PostMapping("/admin/send")
+    public Result<?> sendNotification(@RequestBody SendNotifyVO vo) {
+        notificationService.save(vo);
         return Result.ok();
     }
 }

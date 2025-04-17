@@ -1,5 +1,7 @@
 package org.chenjh.aiqasystem.service.question;
 
+import org.chenjh.aiqasystem.domain.PageResult;
+import org.chenjh.aiqasystem.domain.dto.question.TagDTO;
 import org.chenjh.aiqasystem.domain.dto.question.TagGroupDTO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveTagVO;
 import org.chenjh.aiqasystem.domain.vo.question.UpdateTagVO;
@@ -31,4 +33,14 @@ public interface TagService {
      * @return 标签列表
      */
     List<TagGroupDTO> getTagGroup();
+
+
+    /**
+     * 查询标签列表
+     * @param pageNum 页码
+     * @param pageSize 每页数量
+     * @param q 查询条件
+     * @return 标签列表
+     */
+     PageResult<TagDTO> getTagList(Integer pageNum, Integer pageSize, String q);
 }

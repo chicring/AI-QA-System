@@ -19,14 +19,23 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionDTO {
-    private Long questionId;
+
+    private Long id;
+
     private String questionTitle;
+
     private String questionTips;
+
     private Integer difficulty;
-    private Integer viewCount;
+
+    private String answer;
+
+    private String categoryName;
+
+    private List<String> tagNames;
+
+    private Long viewCount;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Instant createTime;
-    private List<String> tagNames;
-    private Integer categoryId;
 }

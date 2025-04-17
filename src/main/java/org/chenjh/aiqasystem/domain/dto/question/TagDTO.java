@@ -8,7 +8,9 @@ import lombok.Data;
  */
 @Data
 public class TagDTO {
+    private Long id;
     private String tagName;
     private Integer sortNum;
     private Long categoryId;
+    private String categoryName;
 }

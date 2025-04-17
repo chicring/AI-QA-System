@@ -3,7 +3,9 @@ package org.chenjh.aiqasystem.controller.question;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.chenjh.aiqasystem.config.OperationLog;
+import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.Result;
+import org.chenjh.aiqasystem.domain.dto.question.TagDTO;
 import org.chenjh.aiqasystem.domain.dto.question.TagGroupDTO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveTagVO;
 
@@ -45,5 +47,15 @@ public class TagController {
     @OperationLog("标签分组列表")
     public Result<List<TagGroupDTO>> getListGroup() {
         return Result.ok(tagService.getTagGroup());
+    }
+
+    /// 分页查询标签
+    @GetMapping("/list")
+    @OperationLog("标签列表")
+    public Result<PageResult<TagDTO>> getTagList(
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false) String q) {
+        return Result.ok(tagService.getTagList(pageNum, pageSize, q));
     }
 }

@@ -4,6 +4,7 @@ import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.question.QuestionDTO;
 import org.chenjh.aiqasystem.domain.vo.question.QueryQuestionVO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveQuestionVO;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author hjong
@@ -37,4 +38,10 @@ public interface QuestionService{
      * @return QuestionDTO
      */
     PageResult<QuestionDTO> getQuestionList(QueryQuestionVO question);
+
+    /**
+     * 批量导入问题
+     * @param file 问题文件
+     */
+    void batchImportQuestion(MultipartFile file);
 }

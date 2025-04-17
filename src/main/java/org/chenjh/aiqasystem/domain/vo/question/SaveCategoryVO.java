@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class SaveCategoryVO {
     private String categoryName;
-    private String Description;
+    private String description;
     private Integer categoryLevel;
     private Long parentCategoryId;
     private Integer sortNum;

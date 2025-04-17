@@ -4,14 +4,19 @@ import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.dto.system.NotificationDTO;
 import org.chenjh.aiqasystem.domain.vo.system.QueryNotificationVO;
 import org.chenjh.aiqasystem.domain.vo.system.SaveNotificationVO;
+import org.chenjh.aiqasystem.domain.vo.system.SendNotifyVO;
 import org.jooq.Condition;
+import org.jooq.impl.DSL;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.chenjh.aiqasystem.domain.dto.system.admin.NotifyAdminDTO;
+
 import static com.nrapendra.jooq.Tables.SYS_NOTIFICATION;
+import static com.nrapendra.jooq.Tables.SYS_USER;
 
 /**
  * @author hjong
@@ -34,11 +39,11 @@ public class NotificationRepository {
 
     }
 
-    public void save(SaveNotificationVO vo){
+    public void save(SendNotifyVO vo){
         dsl.insertInto(SYS_NOTIFICATION)
                 .set(SYS_NOTIFICATION.TITLE, vo.getTitle())
                 .set(SYS_NOTIFICATION.CONTENT, vo.getContent())
-                .set(SYS_NOTIFICATION.TYPE, vo.getType())
+                .set(SYS_NOTIFICATION.USERNAME, vo.getUsername())
                 .execute();
     }
 
@@ -95,5 +100,41 @@ public class NotificationRepository {
         }
         return condition;
 
+    }
+
+
+    // 管理端查询通知
+    public PageResult<NotifyAdminDTO> pageForAdmin(QueryNotificationVO vo){
+        Condition condition = DSL.noCondition();
+
+        if (vo.getStatus() != null){
+            condition = condition.and(SYS_NOTIFICATION.STATUS.eq(vo.getStatus()));
+        }
+
+        Long total = dsl.selectCount()
+                .from(SYS_NOTIFICATION)
+                .where(condition)
+                .fetchOne(0, Long.class);
+
+        List<NotifyAdminDTO> list = dsl.select(
+                    SYS_NOTIFICATION.ID,
+                    SYS_NOTIFICATION.TITLE,
+                    SYS_NOTIFICATION.CONTENT,
+                    SYS_NOTIFICATION.TYPE,
+                    SYS_NOTIFICATION.STATUS,
+                    SYS_NOTIFICATION.CREATE_TIME,
+                    SYS_USER.USERNAME,
+                    SYS_USER.AVATAR
+                )
+                .from(SYS_NOTIFICATION)
+                .leftJoin(SYS_USER)
+                .on(SYS_NOTIFICATION.USERNAME.eq(SYS_USER.USERNAME))
+                .where(condition)
+                .orderBy(SYS_NOTIFICATION.CREATE_TIME.desc())
+                .limit((vo.getPageNum() - 1) * vo.getPageSize(), vo.getPageSize())
+                .fetch()
+                .into(NotifyAdminDTO.class);
+                
+        return new PageResult<>(vo.getPageNum(), vo.getPageSize(), total, list);
     }
 }

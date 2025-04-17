@@ -89,7 +89,8 @@ public class HistoryRepository {
                         startOfYear.atStartOfDay(),
                         startOfNextYear.atStartOfDay()
                 ))
-                .groupBy(Tables.QA_QUESTION_HISTORY.CREATE_TIME, Tables.QA_QUESTION_HISTORY.USERNAME)
+                .groupBy(Tables.QA_QUESTION_HISTORY.CREATE_TIME,
+                        Tables.QA_QUESTION_HISTORY.USERNAME)
                 .orderBy(Tables.QA_QUESTION_HISTORY.CREATE_TIME)
                 .fetchInto(HeatmapDTO.class);
     }

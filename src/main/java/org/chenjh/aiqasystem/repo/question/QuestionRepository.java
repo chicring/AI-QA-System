@@ -34,6 +34,17 @@ public class QuestionRepository{
         this.dsl = dsl;
     }
 
+    /**
+     * 查询所有问题数量
+     * @return 问题列表
+     */
+    public Long count() {
+        return dsl.selectCount()
+                .from(QA_QUESTION)
+                .where(QA_QUESTION.IS_DELETED.eq(false))
+                .fetchOne(0, Long.class);
+    }
+
     //// 插入并返回插入后的数据
     public Long save(SaveQuestionVO vo) {
         return dsl.insertInto(QA_QUESTION)

@@ -1,6 +1,8 @@
 package org.chenjh.aiqasystem.controller.question;
 
+import cn.idev.excel.FastExcel;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.chenjh.aiqasystem.domain.PageResult;
 import org.chenjh.aiqasystem.domain.Result;
@@ -11,6 +13,11 @@ import org.chenjh.aiqasystem.exception.custom.BadRequestException;
 import org.chenjh.aiqasystem.service.question.QuestionService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 
 @RestController
@@ -72,7 +79,24 @@ public class QuestionController {
         if (file.isEmpty()){
             throw new BadRequestException("文件不能为空");
         }
-
+        questionService.batchImportQuestion(file);
         return Result.ok();
+    }
+
+    /**
+     * 下载导入模板
+     * @return 导出结果
+     */
+    @GetMapping("/template")
+    public void downloadTemplate(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+
+        String fileName = URLEncoder.encode("导入模板", "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+
+        FastExcel.write(response.getOutputStream(), SaveQuestionVO.class)
+                .sheet("模板")
+                .doWrite(new ArrayList<>());
     }
 }

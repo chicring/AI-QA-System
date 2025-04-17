@@ -1,6 +1,8 @@
 package org.chenjh.aiqasystem.service.question.impl;
 
 import jakarta.annotation.Resource;
+import org.chenjh.aiqasystem.domain.PageResult;
+import org.chenjh.aiqasystem.domain.dto.question.TagDTO;
 import org.chenjh.aiqasystem.domain.dto.question.TagGroupDTO;
 import org.chenjh.aiqasystem.domain.vo.question.SaveTagVO;
 import org.chenjh.aiqasystem.domain.vo.question.UpdateTagVO;
@@ -24,7 +26,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void deleteTag(Long tagId) {
-
+        tagRepository.delete(tagId);
     }
 
     @Override
@@ -35,5 +37,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<TagGroupDTO> getTagGroup() {
         return tagRepository.findGroupByCategory();
+    }
+
+    @Override
+    public PageResult<TagDTO> getTagList(Integer pageNum, Integer pageSize, String q) {
+        return tagRepository.queryPage(pageNum, pageSize, q);
     }
 }
